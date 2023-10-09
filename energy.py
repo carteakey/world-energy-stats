@@ -39,7 +39,7 @@ if toggle:
         # projection="natural earth",
     )
     
-    fig.layout.displayModeBar = False
+    # fig.layout.displayModeBar = False
     fig.layout.dragmode = False
     fig.layout.xaxis.fixedrange = True
     fig.layout.yaxis.fixedrange = True
@@ -58,7 +58,7 @@ else:
         hover_name="country",  # column to add to hover information
         # projection="natural earth",
     )
-    fig.layout.displayModeBar = False
+    # fig.layout.displayModeBar = False
     fig.layout.dragmode = False
     fig.layout.xaxis.fixedrange = True
     fig.layout.yaxis.fixedrange = True
