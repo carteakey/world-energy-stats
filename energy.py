@@ -18,9 +18,6 @@ df = df[df["year"] <= end_year]
 st.header("Where does the world's energy come from?")
 
 
-
-
-
 st.header("Who consumes it the most?")
 
 toggle = st.toggle("Total / Per-Capita")
@@ -38,7 +35,7 @@ if toggle:
         hover_name="country",  # column to add to hover information
         # projection="natural earth",
     )
-    
+
     # fig.layout.displayModeBar = False
     fig.layout.dragmode = False
     fig.layout.xaxis.fixedrange = True
@@ -62,5 +59,5 @@ else:
     fig.layout.dragmode = False
     fig.layout.xaxis.fixedrange = True
     fig.layout.yaxis.fixedrange = True
-    fig.update_layout(autosize=True,height=800)
+    fig.update_layout(autosize=True, height=800)
     st.plotly_chart(fig, use_container_width=True)
