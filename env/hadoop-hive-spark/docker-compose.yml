@@ -111,7 +111,7 @@ services:
       - "9083:9083"
 
   spark-notebook:
-    image: quay.io/jupyter/pyspark-notebook
+    image: jupyter/pyspark-notebook:python-3.7
     container_name: spark-notebook
     volumes:
       - ./notebooks:/home/jovyan/notebooks
