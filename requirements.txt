@@ -2,4 +2,4 @@ numpy
 pandas
 streamlit
 plotly
-duckdb
+duckdb==0.7.1

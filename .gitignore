@@ -6,3 +6,4 @@ bin
 *.crc
 _SUCCESS
 *.wal
+.~*
