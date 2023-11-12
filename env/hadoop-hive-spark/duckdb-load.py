@@ -12,7 +12,7 @@ folder_path = "notebooks/clean/"
 con = duckdb.connect(db_path)
 
 # # List part files in the folder
-part_files = [f for f in glob(folder_path + "*/part-*.csv")]
+part_files = [f for f in glob(folder_path + "*.csv")]
 
 print(part_files)
 
@@ -21,16 +21,12 @@ for part_file in part_files:
     table_name = os.path.splitext(os.path.basename(part_file))[
         0
     ]  # Extract table name from file name
-    print(table_name)
-    file_path = os.path.join(folder_path, part_file)  # Full path to part file
-    print(file_path)
-    # print(
-    #     f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM read_csv_auto('{file_path}', header=true);"
-    # )
-
-    # con.execute(
-    #     f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM read_csv_auto('{file_path}', header=true);"
-    # )
+    print(
+        f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM read_csv_auto('{part_file}', header=true);"
+    )
+    con.execute(
+        f"CREATE TABLE IF NOT EXISTS {table_name} AS SELECT * FROM read_csv_auto('{part_file}', header=true);"
+    )
 
 # Close the DuckDB connection
 con.close()

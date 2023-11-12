@@ -5,3 +5,4 @@ bin
 .ipynb_checkpoints
 *.crc
 _SUCCESS
+*.wal
