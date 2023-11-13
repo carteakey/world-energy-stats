@@ -11,7 +11,7 @@ def index():
 def get_data():
     import pandas as pd
 
-    df = pd.read_csv("env/hadoop-hive-spark/notebooks/insight-1.csv")
+    df = pd.read_csv("env/hadoop-hive-spark/notebooks/output/insight-1.csv")
 
     df.head()
 
@@ -45,7 +45,7 @@ def get_data():
     )
     insight_1 = Chart.from_options(options)
     insight_1.add_series(insight_1_a, insight_1_b)
-    insight_1.container='chart'
+    insight_1.container='insight-1'
 
     as_js_literal = insight_1.to_js_literal()
 
