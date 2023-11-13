@@ -50,3 +50,7 @@ https://ourworldindata.org/energy#citation
 
 
 docker rmi $(docker images -a -q)
+
+curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.7.3/docker-compose.yaml'
+
+docker compose up airflow-init
