@@ -26,9 +26,9 @@ def get_data():
     from highcharts_core.options.axes.accessibility import AxisAccessibility
 
     insight_1_a = LineSeries.from_pandas(
-        df,
-        series_type="line",
-        property_map={"y": "renewables_consumption", "x": "year"},
+    df,
+    series_type="line",
+    property_map={"y": "renewables_consumption", "x": "year"},
     )
 
     insight_1_b = LineSeries.from_pandas(
@@ -45,6 +45,7 @@ def get_data():
     )
     insight_1 = Chart.from_options(options)
     insight_1.add_series(insight_1_a, insight_1_b)
+    insight_1.container='chart'
 
     as_js_literal = insight_1.to_js_literal()
 
