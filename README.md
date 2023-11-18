@@ -39,17 +39,11 @@ Airflow
 nohup FLASK_APP=app && flask run --host=0.0.0.0  --debug 1>flask-server.log &
 
 
-sudo chmod 777 notebooks
-sudo chmod 777 data
 
-docker exec -it hive-server hive
-docker exec -it resourcemanager /bin/bash
 
-hadoop fs -mkdir /energy-data
-cd /opt/data
-hadoop fs -put owid-energy-data.csv /energy-data/
-hadoop fs -ls /energy-data/
-docker exec spark-notebook jupyter server list
+
+
+
 
 ### References
 

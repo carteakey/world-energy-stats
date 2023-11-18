@@ -8,3 +8,4 @@ _SUCCESS
 *.wal
 .~*
 *.log
+latest
