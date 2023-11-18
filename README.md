@@ -10,6 +10,7 @@
 | Hadoop  | ResourceManager UI | http://localhost:8088/cluster |
 | Jupyter | Notebook UI        | http://localhost:8888/        |
 | Spark   | Master             | http://localhost:8080/        |
+<<<<<<< HEAD
 | Spark   | Master             | http://localhost:8080/        |
 | Spark   | Master             | http://localhost:8080/        |
 
@@ -21,6 +22,8 @@ Airflow
 4 - runs sql queries and saves to hadoop fs - HIVE SQL
 5 - copies the final clean data from hadoop fs for plotting - HIVE SQL
 6 - creates plots and runs the dashboard - XX 
+=======
+>>>>>>> 63e8d118139e32bbf7366b02f6147c200153f82f
 
 
 ### Tasks

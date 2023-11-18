@@ -124,6 +124,7 @@ services:
       - "SPARK_MASTER=spark://spark-master:7077"
       - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
 
+<<<<<<< HEAD
   spark-worker-2:
     image: bde2020/spark-worker:3.3.0-hadoop3.3
     container_name: spark-worker-2
@@ -135,6 +136,8 @@ services:
       - "SPARK_MASTER=spark://spark-master:7077"
       - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
 
+=======
+>>>>>>> 63e8d118139e32bbf7366b02f6147c200153f82f
   hive-server:
     image: bde2020/hive:2.3.2-postgresql-metastore
     container_name: hive-server
