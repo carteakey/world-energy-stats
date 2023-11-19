@@ -11,35 +11,35 @@ df = df.sort_values(by="electricity_generation", ascending=True)
 
 # Map 'max_share_name' to a color
 color_mapping = {
-    'coal_share_elec': 'brown',
-    'low_carbon_share_elec': 'green',
-    'gas_share_elec': 'blue'
+    "coal_share_elec": "brown",
+    "low_carbon_share_elec": "green",
+    "gas_share_elec": "blue",
 }
-df['color'] = df['max_share_name'].map(color_mapping)
+df["color"] = df["max_share_name"].map(color_mapping)
 
 # Sort values by 'Max Share' for better visualization
 # df.sort_values('max_share', ascending=True, inplace=True)
 
 # Create the bar chart
-fig = go.Figure(go.Bar(
-    y=df['country'],
-    x=df['max_share'],
-    orientation='h',
-    marker_color=df['color'],  # Use the mapped colors
-    text=df['max_share'].apply(lambda x: f'{x:.2f}%'),  # Format the text labels
-    textposition='inside'
-))
+fig = go.Figure(
+    go.Bar(
+        y=df["country"],
+        x=df["max_share"],
+        orientation="h",
+        marker_color=df["color"],  # Use the mapped colors
+        text=df["max_share"].apply(lambda x: f"{x:.2f}%"),  # Format the text labels
+        textposition="inside",
+    )
+)
 
 # Customize the layout
 fig.update_layout(
     xaxis=dict(
-        title='Max Share (%)',
+        title="Max Share (%)",
         tickvals=list(range(0, 101, 10)),  # Set x-axis ticks to be every 10%
-        ticktext=[f'{i}%' for i in range(0, 101, 10)]
+        ticktext=[f"{i}%" for i in range(0, 101, 10)],
     ),
-    yaxis=dict(
-        title='Country'
-    ),
+    yaxis=dict(title="Country"),
     height=800,
     legend=dict(
         x=0.5,
@@ -49,33 +49,10 @@ fig.update_layout(
         bgcolor="rgba(255, 255, 255, 0)",
         bordercolor="rgba(255, 255, 255, 0)",
     ),
-    paper_bgcolor='white',
-    plot_bgcolor='white'
+    paper_bgcolor="white",
+    plot_bgcolor="white",
 )
 
-
-# # Here we modify the tickvals and ticktext to align them with the original plot's style
-# fig.update_layout(
-#     barmode="stack",
-#     height=800,
-#     xaxis=dict(
-#         title="Percentage",
-#         tickvals=[0, 20, 40, 60, 80, 100],
-#         ticktext=["0%", "20%", "40%", "60%", "80%", "100%"],
-#     ),
-#     yaxis=dict(title="Country"),
-#     legend=dict(
-#         x=0.5,
-#         y=-0.1,
-#         xanchor="center",
-#         orientation="h",
-#         bgcolor="rgba(255, 255, 255, 0)",
-#         bordercolor="rgba(255, 255, 255, 0)",
-#     ),
-#     paper_bgcolor="white",
-#     plot_bgcolor="white",
-#     margin=dict(l=0, r=0, t=30, b=0),
-# )
 
 # Add borders around the plot
 fig.update_xaxes(showline=True, linewidth=2, linecolor="black", mirror=True)

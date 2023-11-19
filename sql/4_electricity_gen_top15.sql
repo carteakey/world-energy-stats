@@ -24,26 +24,25 @@ FROM
 WHERE
   year = 2021
   AND country IN (
-        'China',
-        'United States',
-        'India',
-        'Russia',
-        'Japan',
-        'Canada',
-        'Brazil',
-        'South Korea',
-        'Germany',
-        'Iran',
-        'Saudi Arabia',
-        'France',
-        'Mexico',
-        'Indonesia',
-        'United Kingdom'
-    )
+    'China',
+    'United States',
+    'India',
+    'Russia',
+    'Japan',
+    'Canada',
+    'Brazil',
+    'South Korea',
+    'Germany',
+    'Iran',
+    'Saudi Arabia',
+    'France',
+    'Mexico',
+    'Indonesia',
+    'United Kingdom'
+  )
 GROUP BY
   country,
-  year
--- HAVING
---   non_renewable_percentage > 50
+  year -- HAVING
+  --   non_renewable_percentage > 50
 ORDER BY
   total_consumption DESC

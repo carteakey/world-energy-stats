@@ -158,8 +158,7 @@ WHERE
     'France',
     'Mexico',
     'Indonesia',
-    'United Kingdom'
-    -- 'Iceland'
+    'United Kingdom' -- 'Iceland'
   )
 ORDER BY
   electricity_generation DESC

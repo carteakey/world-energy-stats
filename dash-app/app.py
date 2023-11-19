@@ -4,6 +4,7 @@ from components import insight_2
 from components import insight_3
 from components import insight_4a
 from components import insight_4b
+from components import insight_5
 
 import dash_core_components as dcc
 import pandas as pd
@@ -43,6 +44,11 @@ app.layout = html.Div(
             style={"textAlign": "center"},
         ),
         insight_4b.layout,
+        html.H2(
+            children="Energy, GDP and Population",
+            style={"textAlign": "center"},
+        ),
+        insight_5.layout,
     ]
 )
 
