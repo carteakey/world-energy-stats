@@ -24,7 +24,7 @@ def run_spark_sql(sql_file_path, save_file=None):
     spark.sql("USE wes")
 
     # Read SQL query from the file
-    with open("/home/jovyan/sql/" + sql_file_path, "r") as file:
+    with open("sql/" + sql_file_path, "r") as file:
         sql_query = file.read()
 
     # Execute the SQL query

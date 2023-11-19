@@ -1,0 +1,2 @@
+"round(((sum(primary_energy_consumption) / total_energy) * 100), 2)"
+74.17

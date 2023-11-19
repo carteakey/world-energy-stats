@@ -41,5 +41,4 @@ echo "Creating Hive database..."
 docker exec -it hive-server hive -e "CREATE DATABASE wes"
 
 
-
 echo "Setup complete!"

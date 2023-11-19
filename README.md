@@ -1,18 +1,26 @@
 # world-energy-stats
 
+AIRFLOW
+HADOOP
+SPARK
+DOCKER
+
+
+
+
+
+
 `docker compose up -d` - Spin up the containers.
 
 ### Links
 
 | App     | Server             | Link                          |
 | ------- | ------------------ | ----------------------------- |
-| Hadoop  | Namenode UI        | http://localhost:9870/        |
 | Hadoop  | ResourceManager UI | http://localhost:8088/cluster |
+| Hadoop  | Namenode UI        | http://localhost:9870/        |
 | Jupyter | Notebook UI        | http://localhost:8888/        |
 | Spark   | Master             | http://localhost:8080/        |
-<<<<<<< HEAD
-| Spark   | Master             | http://localhost:8080/        |
-| Spark   | Master             | http://localhost:8080/        |
+| Airflow  |                    |                               |
 
 
 Airflow
@@ -22,14 +30,13 @@ Airflow
 4 - runs sql queries and saves to hadoop fs - HIVE SQL
 5 - copies the final clean data from hadoop fs for plotting - HIVE SQL
 6 - creates plots and runs the dashboard - XX 
-=======
->>>>>>> 63e8d118139e32bbf7366b02f6147c200153f82f
 
 
 ### Tasks
 
 - [x] Forward fill missing data
-- [ ] combine airflow
+- [x] combine airflow
+- [ ] airflow dags
 - [x] remove presto
 - [x] mount hadoop
 - [x] mount notebooks
@@ -37,12 +44,6 @@ Airflow
 ### COMMANDS
 
 nohup FLASK_APP=app && flask run --host=0.0.0.0  --debug 1>flask-server.log &
-
-
-
-
-
-
 
 
 ### References

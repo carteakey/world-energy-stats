@@ -9,3 +9,5 @@ _SUCCESS
 .~*
 *.log
 latest
+dash-app/app.py
+airflow/logs/scheduler/latest

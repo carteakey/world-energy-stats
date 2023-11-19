@@ -1,79 +1,107 @@
 from dash import html, dcc
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 import pandas as pd
 
-# Data preparation
+df = pd.read_csv("notebooks/output/3_energy_breakdown_top15.csv")
 
-df = pd.read_csv("notebooks/output/insight-3-m.csv")
+# Initialize the figure
+fig = go.Figure()
 
-# Create subplots
-fig = make_subplots(specs=[[{"secondary_y": True}]])
 
-# Add line traces for each type of energy
-fig.add_trace(
-    go.Scatter(
-        x=df["year"], y=df["coal_consumption"], mode="lines", name="Coal Consumption"
-    ),
-    secondary_y=False,
-)
-fig.add_trace(
-    go.Scatter(
-        x=df["year"], y=df["gas__consumption"], mode="lines", name="Gas Consumption"
-    ),
-    secondary_y=False,
-)
+# Function to add a trace for each energy source
+def add_trace(source_column, name, color):
+    fig.add_trace(
+        go.Scatter(
+            x=df["year"],
+            y=df[source_column],
+            mode="lines+markers",
+            name=name,
+            line=dict(color=color),
+        )
+    )
+
+# Hide a specific trace by setting its visibility to 'legendonly'
 fig.add_trace(
     go.Scatter(
         x=df["year"],
-        y=df["biofuel_consumption"],
-        mode="lines",
-        name="Biofuel Consumption",
-    ),
-    secondary_y=True,
-)
-fig.add_trace(
-    go.Scatter(
-        x=df["year"], y=df["hydro_consumption"], mode="lines", name="Hydro Consumption"
-    ),
-    secondary_y=False,
-)
-fig.add_trace(
-    go.Scatter(
-        x=df["year"],
-        y=df["nuclear_consumption"],
-        mode="lines",
-        name="Nuclear Consumption",
-    ),
-    secondary_y=False,
-)
-fig.add_trace(
-    go.Scatter(
-        x=df["year"], y=df["oil_consumption"], mode="lines", name="Oil Consumption"
-    ),
-    secondary_y=False,
-)
-fig.add_trace(
-    go.Scatter(
-        x=df["year"], y=df["solar_consumption"], mode="lines", name="Solar Consumption"
-    ),
-    secondary_y=True,
-)
-fig.add_trace(
-    go.Scatter(
-        x=df["year"], y=df["wind_consumption"], mode="lines", name="Wind Consumption"
-    ),
-    secondary_y=True,
+        y=df["perc_ren_consumption"],
+        mode="lines+markers",
+        name="Renewables",
+        visible="legendonly",  # This hides the trace initially
+    )
 )
 
-# Set y-axes titles
-fig.update_yaxes(title_text="Primary Axis Consumption (in TW)", secondary_y=False)
-fig.update_yaxes(title_text="Secondary Axis Consumption (in TW)", secondary_y=True)
+# Add traces for each energy source
+add_trace("perc_coal_consumption", "Coal", "black")
+add_trace("perc_gas_consumption", "Gas", "red")
+add_trace("perc_biofuel_consumption", "Bioenergy", "green")
+add_trace("perc_hydro_consumption", "Hydropower", "blue")
+add_trace("perc_nuclear_consumption", "Nuclear", "purple")  # Highlight Nuclear
+add_trace("perc_oil_consumption", "Oil", "brown")
+add_trace("perc_solar_consumption", "Solar", "orange")
+add_trace("perc_wind_consumption", "Wind", "grey")
 
-
-# Update layout
+# Updating layout for white background and black border
 fig.update_layout(
-    title_text="Energy Consumption by Type: 1990-1991", xaxis_title="Year"
+    xaxis_title="Year",
+    yaxis_title="Percentage (%)",
+    height=800,
+    template="plotly",
+    paper_bgcolor="white",  # Set the background color for the entire figure
+    plot_bgcolor="white",  # Set the background color for the plot area
+    margin=dict(r=100, l=100, t=100, b=100),  # Adjust margins to prevent cutting off
+    legend=dict(
+        x=0.5, y=-0.1, xanchor="center", orientation="h"  # Horizontal orientation
+    ),
 )
 
-layout = html.Div([dcc.Graph(id="insight-3", figure=fig)])
+# Add border around the plot
+fig.update_xaxes(showline=True, linewidth=2, linecolor="black", mirror=True)
+fig.update_yaxes(showline=True, linewidth=2, linecolor="black", mirror=True)
+
+# Add gray gridlines to the plot
+fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor="lightgrey")
+
+# Add annotations at the end of each line to act as custom legends
+for source_column, name, color in [
+    ("perc_coal_consumption", "Coal", "black"),
+    ("perc_gas_consumption", "Gas", "red"),
+    ("perc_biofuel_consumption", "Bioenergy", "green"),
+    ("perc_hydro_consumption", "Hydropower", "blue"),
+    ("perc_nuclear_consumption", "Nuclear", "purple"),
+    ("perc_oil_consumption", "Oil", "brown"),
+    ("perc_solar_consumption", "Solar", "orange"),
+    ("perc_wind_consumption", "Wind", "grey"),
+]:
+    # This assumes that the last year in your DataFrame is 2022; adjust if needed
+    last_year = df["year"].iloc[-1]
+    last_value = df[source_column].iloc[-1]
+    fig.add_annotation(
+        x=last_year,
+        y=last_value,
+        text=name,
+        showarrow=False,
+        xshift=38,
+        yshift=0,
+        font=dict(color=color),
+        bgcolor="white",
+    )
+
+# Disable the default legend
+# fig.update_layout(showlegend=False)
+
+# Define subtext for the plot as a single paragraph
+subtext = (
+    "Coal consumption increased significantly between 1990 and 2010, "
+    "then stabilized. There has been a marked increase in the use of Solar "
+    "and Wind energy sources. Nuclear energy usage has remained constant, "
+    "possibly due to safety concerns, despite its potential as a fossil fuel alternative."
+)
+
+# Define the layout for the Dash app
+layout = html.Div(
+    [
+        dcc.Graph(id="insight-3", figure=fig),
+        html.P(subtext, style={'textAlign': 'center', 'marginTop': 20, 'fontSize': 14})
+    ]
+)
