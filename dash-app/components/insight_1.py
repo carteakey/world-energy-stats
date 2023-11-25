@@ -1,6 +1,7 @@
 from dash import html, dcc
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 
@@ -9,9 +10,9 @@ df = pd.read_csv("notebooks/output/1_energy_overview.csv")
 # Creating a more styled Plotly figure
 fig = px.line(df, x="year", y="PRIM_ENERGY_CONS")
 fig.update_traces(
-    line=dict(color="blue", width=3),
+    line=dict(color="#007bff", width=3),  # Updated line color
     mode="lines+markers",
-    marker=dict(color="red", size=10),
+    marker=dict(color="#dc3545", size=10),  # Updated marker color
 )
 
 # Modifying annotations to point below the line
@@ -23,7 +24,7 @@ annotations = [
         yref="y",
         text="2009 Financial Crisis 📉",
         showarrow=True,
-        arrowhead=1,
+        arrowhead=3,
         ax=0,
         ay=40,  # Arrow points below
     ),
@@ -34,7 +35,7 @@ annotations = [
         yref="y",
         text="We all know why 😷",
         showarrow=True,
-        arrowhead=1,
+        arrowhead=3,
         ax=0,
         ay=40,  # Arrow points below
     ),
@@ -49,9 +50,17 @@ fig.update_layout(
     template="plotly",
     paper_bgcolor="white",  # Set the background color for the entire figure
     plot_bgcolor="white",  # Set the background color for the plot area
-    margin=dict(r=100, l=100, t=100, b=100),  # Adjust margins to prevent cutting off
+    margin=dict(r=100, l=100, t=100,
+                b=100),  # Adjust margins to prevent cutting off
     showlegend=False,
-)
+    xaxis=dict(
+        showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey",
+        zeroline=True  # Optionally, you can hide the zero line
+    ),
+    yaxis=dict(
+        showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey",
+        zeroline=False
+    ))
 
 # Add border around the plot
 fig.update_xaxes(showline=True, linewidth=2, linecolor="black", mirror=True)
@@ -68,9 +77,29 @@ subtext = (
 )
 
 # Define the layout for the Dash app
-layout = html.Div(
-    [
-        dcc.Graph(id="insight-1", figure=fig),
-        html.P(subtext, style={"textAlign": "center", "marginTop": 20, "fontSize": 14}),
-    ]
+layout = dbc.Container(
+    [dbc.Row(
+        dbc.Col(html.H2("Global Energy Consumption Trends",
+                        className="text-center my-4"),
+                width=12)),
+        dbc.Row(
+            dbc.Col(
+                dcc.Graph(id="insight-1", figure=fig),
+                width=12
+            )
+    ),
+        dbc.Row(
+            dbc.Col(
+                html.P(
+                    subtext,
+                    style={"textAlign": "justify",
+                           "marginTop": "20px"},
+                    className="mx-auto"
+                ),
+                # Centralize and limit the width of the text
+                width={"size": 10, "offset": 1}
+            )
+    )
+    ],
+    fluid=True
 )

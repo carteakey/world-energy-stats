@@ -1,5 +1,6 @@
 from dash import html, dcc
 import plotly.graph_objects as go
+import dash_bootstrap_components as dbc
 import pandas as pd
 
 df = pd.read_csv("notebooks/output/3_energy_breakdown_top15.csv")
@@ -45,19 +46,21 @@ add_trace("perc_wind_consumption", "Wind", "grey")
 fig.update_layout(
     xaxis_title="Year",
     yaxis_title="Percentage (%)",
-    height=800,
-    template="plotly",
-    paper_bgcolor="white",  # Set the background color for the entire figure
-    plot_bgcolor="white",  # Set the background color for the plot area
+    height=600,  # Reduced height for better visibility
+    template="plotly_white",  # Use a light theme for a cleaner look
     margin=dict(r=100, l=100, t=100, b=100),  # Adjust margins to prevent cutting off
     legend=dict(
-        x=0.5, y=-0.1, xanchor="center", orientation="h"  # Horizontal orientation
+        x=0.5, y=-0.1, xanchor="center", orientation="h"
     ),
+    showlegend=True,  # You can choose to show or hide the legen
 )
 
 # Add border around the plot
-fig.update_xaxes(showline=True, linewidth=2, linecolor="black", mirror=True)
-fig.update_yaxes(showline=True, linewidth=2, linecolor="black", mirror=True)
+fig.update_xaxes(showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey")
+fig.update_yaxes(showline=True,
+                 linewidth=2,
+                 linecolor="black",
+                 gridcolor="lightgrey")
 
 # Add gray gridlines to the plot
 fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor="lightgrey")
@@ -99,9 +102,25 @@ subtext = (
 )
 
 # Define the layout for the Dash app
-layout = html.Div(
+layout = dbc.Container(
     [
-        dcc.Graph(id="insight-3", figure=fig),
-        html.P(subtext, style={'textAlign': 'center', 'marginTop': 20, 'fontSize': 14})
-    ]
-)
+        dbc.Row(
+            dbc.Col(html.H2("Energy Mix",
+                            className="text-center my-4"),
+                    width=12)),
+        dbc.Row(dbc.Col(dcc.Graph(id="insight-3", figure=fig), width=12)),
+        dbc.Row(
+            dbc.Col(
+                html.P(subtext,
+                       style={
+                           "textAlign": "justify",
+                           "marginTop": "20px"
+                       },
+                       className="mx-auto"),
+                width={
+                    "size": 10,
+                    "offset": 1
+                }  # Centralize and limit the width of the text
+            ))
+    ],
+    fluid=True)

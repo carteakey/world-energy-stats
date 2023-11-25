@@ -76,6 +76,6 @@ subtext = (
 layout = html.Div(
     [
         dcc.Graph(id="insight-4b", figure=fig),
-        html.P(subtext, style={"textAlign": "center", "marginTop": 20, "fontSize": 14}),
+        html.P(subtext, style={"textAlign": "center", "marginTop": 20, }),
     ]
 )

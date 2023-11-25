@@ -2,3 +2,4 @@ dash
 flask
 jupyter
 pandas
+dash-bootstrap-components
