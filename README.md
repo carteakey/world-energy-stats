@@ -59,39 +59,10 @@ curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.7.3/docker-compose.y
 
 docker compose up airflow-init
 
-
+## Project Structure
+```~/world-energy-stats# tree --gitignore -L 3
 .
 ├── README.md
-├── _archive
-│   ├── DS8003 Final Project Ideas.pdf
-│   ├── airflow
-│   │   └── docker-compose.yml
-│   ├── app
-│   │   ├── __init__.py
-│   │   ├── routes.py
-│   │   ├── static
-│   │   └── templates
-│   ├── app.py
-│   ├── app_v0.py
-│   ├── app_v1.py
-│   ├── app_v2.py
-│   ├── app_v3.py
-│   ├── duckdb-load.py
-│   ├── energy-clean-data.db
-│   ├── highcharts
-│   │   ├── highcharts-viz.ipynb
-│   │   └── map_data.ipynb
-│   ├── hive_queries_renewables.ipynb
-│   ├── index.html
-│   ├── old
-│   │   ├── app_old.py
-│   │   ├── insight_1_old.py
-│   │   ├── insight_2.py
-│   │   ├── insight_3.py
-│   │   └── insight_3_5.py
-│   ├── routes.py
-│   ├── spark_etl_regions.ipynb
-│   └── streamlit-app.py
 ├── airflow
 │   ├── config
 │   ├── dags
@@ -109,16 +80,12 @@ docker compose up airflow-init
 │   │   ├── energy-consumption.png
 │   │   ├── energy-gdp-pop.png
 │   │   ├── energy-mix.png
-│   │   ├── old
-│   │   ├── old_v2
 │   │   └── styles.css
 │   └── components
 │       ├── insight_1.py
 │       ├── insight_2.py
 │       ├── insight_3.py
 │       ├── insight_4.py
-│       ├── insight_4a.py
-│       ├── insight_4b.py
 │       └── insight_5.py
 ├── docker-compose.env
 ├── docker-compose.yml
@@ -184,5 +151,8 @@ docker compose up airflow-init
     ├── 5_population_correlation.sql
     ├── combined_energy_data.sql
     └── energy_share.sql
+
+21 directories, 69 files
+```
 
 30 directories, 94 files

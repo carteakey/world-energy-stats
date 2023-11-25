@@ -11,8 +11,6 @@ df = pd.read_csv("./assets/data/3_energy_breakdown_top15.csv")
 fig = go.Figure()
 
 # Function to add a trace for each energy source
-
-
 def add_trace(source_column, name, color, visible=True):
     fig.add_trace(
         go.Scatter(
