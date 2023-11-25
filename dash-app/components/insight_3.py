@@ -11,6 +11,8 @@ df = pd.read_csv("./assets/data/3_energy_breakdown_top15.csv")
 fig = go.Figure()
 
 # Function to add a trace for each energy source
+
+
 def add_trace(source_column, name, color, visible=True):
     fig.add_trace(
         go.Scatter(
@@ -23,16 +25,17 @@ def add_trace(source_column, name, color, visible=True):
         )
     )
 
+
 # Add traces for each energy source
 energy_sources = [
-    ("perc_coal_consumption", "Coal", "black"),
-    ("perc_gas_consumption", "Gas", "red"),
-    ("perc_biofuel_consumption", "Bioenergy", "green"),
-    ("perc_hydro_consumption", "Hydropower", "blue"),
-    ("perc_nuclear_consumption", "Nuclear", "purple"),
-    ("perc_oil_consumption", "Oil", "brown"),
-    ("perc_solar_consumption", "Solar", "orange"),
-    ("perc_wind_consumption", "Wind", "grey"),
+    ("perc_coal_consumption", "Coal", "black", True),
+    ("perc_gas_consumption", "Gas", "red", True),
+    ("perc_biofuel_consumption", "Bioenergy", "green", True),
+    ("perc_hydro_consumption", "Hydropower", "blue", True),
+    ("perc_nuclear_consumption", "Nuclear", "purple", True),
+    ("perc_oil_consumption", "Oil", "brown", True),
+    ("perc_solar_consumption", "Solar", "orange", True),
+    ("perc_wind_consumption", "Wind", "grey", True),
     ("perc_ren_consumption", "Renewables", "lightblue", False)  # Hidden initially
 ]
 
@@ -50,8 +53,10 @@ fig.update_layout(
     margin=dict(r=100, l=100, t=0, b=100),
     legend=dict(x=0.5, y=-0.1, xanchor="center", orientation="h"),
     showlegend=True,
-    xaxis=dict(showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey"),
-    yaxis=dict(showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey", showgrid=True, gridwidth=1)
+    xaxis=dict(showline=True, linewidth=2,
+               linecolor="black", gridcolor="lightgrey"),
+    yaxis=dict(showline=True, linewidth=2, linecolor="black",
+               gridcolor="lightgrey", showgrid=True, gridwidth=1)
 )
 
 # Add annotations for each energy source
@@ -80,14 +85,16 @@ subtext = (
 layout = dbc.Container(
     [
         dbc.Row(
-            dbc.Col(html.H2("Energy Mix Overview", className="text-center my-4"), width=12)
+            dbc.Col(html.H2("Energy Mix Overview",
+                    className="text-center my-4"), width=12)
         ),
         dbc.Row(
             dbc.Col(dcc.Graph(id="insight-3", figure=fig), width=12)
         ),
         dbc.Row(
             dbc.Col(
-                html.P(subtext, style={"textAlign": "justify", "marginTop": "20px"}, className="mx-auto"),
+                html.P(subtext, style={"textAlign": "justify",
+                       "marginTop": "20px"}, className="mx-auto"),
                 width={"size": 10, "offset": 1}
             )
         )

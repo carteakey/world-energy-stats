@@ -14,6 +14,8 @@ app.title = "World Energy Statistics"
 server = app.server
 
 # Define a Navbar component with links to each insight
+
+
 def create_navbar():
     navbar = dbc.Navbar(
         [
@@ -143,7 +145,7 @@ def create_footer():
 
 
 # Define the app layout with URL routing
-app.layout = html.Div(className='bg-body-tertiary',children=[
+app.layout = html.Div(className='bg-body-tertiary', children=[
     dcc.Location(id='url', refresh=False),
     create_navbar(),
     html.Div(id='page-content'), create_footer()
