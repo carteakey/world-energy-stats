@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
 import pandas as pd
 
-df = pd.read_csv("notebooks/output/3_energy_breakdown_top15.csv")
+df = pd.read_csv("./assets/data/3_energy_breakdown_top15.csv")
 
 # Initialize the figure
 fig = go.Figure()
@@ -44,14 +44,16 @@ add_trace("perc_wind_consumption", "Wind", "grey")
 
 # Updating layout for white background and black border
 fig.update_layout(
+    template="seaborn",
+    paper_bgcolor='#f8f9fa',  # Matches the webpage background
+    plot_bgcolor='#f8f9fa',
     xaxis_title="Year",
     yaxis_title="Percentage (%)",
     height=600,  # Reduced height for better visibility
-    template="plotly_white",  # Use a light theme for a cleaner look
-    margin=dict(r=100, l=100, t=100, b=100),  # Adjust margins to prevent cutting off
-    legend=dict(
-        x=0.5, y=-0.1, xanchor="center", orientation="h"
-    ),
+    # margin=dict(l=0, r=0, t=0, b=0),  # Reducing bottom margin
+    margin=dict(r=100, l=100, t=0,
+                b=100),  # Adjust margins to prevent cutting off
+    legend=dict(x=0.5, y=-0.1, xanchor="center", orientation="h"),
     showlegend=True,  # You can choose to show or hide the legen
 )
 
@@ -75,6 +77,7 @@ for source_column, name, color in [
     ("perc_oil_consumption", "Oil", "brown"),
     ("perc_solar_consumption", "Solar", "orange"),
     ("perc_wind_consumption", "Wind", "grey"),
+    ("perc_ren_consumption","Renewables","light blue")
 ]:
     # This assumes that the last year in your DataFrame is 2022; adjust if needed
     last_year = df["year"].iloc[-1]
@@ -84,10 +87,10 @@ for source_column, name, color in [
         y=last_value,
         text=name,
         showarrow=False,
-        xshift=38,
+        xshift=60 ,
         yshift=0,
-        font=dict(color=color),
-        bgcolor="white",
+        font=dict(color=color,size=14),
+        # bgcolor="white",
     )
 
 # Disable the default legend

@@ -5,13 +5,21 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 
-df = pd.read_csv("notebooks/output/2_energy_consumption_top15.csv")
+df = pd.read_csv("./assets/data/2_energy_consumption_top15.csv")
 
 # Rank countries based on energy consumption and categorize them
 df["rank"] = df["primary_energy_consumption"].rank(ascending=False)
 df["category"] = pd.cut(
-    df["rank"], bins=[0, 15, 100, 229], labels=["Top 15", "Middle", "Bottom 129"]
+    df["rank"], bins=[0, 15, 100, 229],
+    labels=["Top 15 - 70% Consumption", "Next 85 Countries", "Remaining Countries"]
 )
+
+color_discrete_map = {
+    "Top 15 - 70% Consumption": "darkred",
+    "Next 85 Countries": "orange",
+    "Remaining Countries": "lightyellow",
+}
+
 
 # Create the Plotly figure
 fig = px.choropleth(
@@ -20,46 +28,60 @@ fig = px.choropleth(
     color="category",
     hover_name="country",
     hover_data={"primary_energy_consumption": True, "rank": True},
-    color_discrete_map={
-        "Top 15": "darkred",
-        "Middle": "orange",
-        "Bottom 129": "lightyellow",
-    },
+    color_discrete_map=color_discrete_map,
 )
+
+# fig.add_annotation(
+#     dict(
+#         x=0.5,
+#         y=1.15,
+#         xref="paper",
+#         yref="paper",
+#         text="Top 15 countries account for 70% of global energy consumption",
+#         showarrow=False,
+#         font=dict(size=15, color="red"),
+#         align="center"
+#     )
+# )
+
+# # Sort the DataFrame to ensure the top 15 are correctly identified
+# top_15_countries = df.nlargest(
+#     15, 'primary_energy_consumption')['iso_code'].tolist()
+
+# for country in top_15_countries:
+#     fig.add_annotation(
+#         dict(
+#             text=country,
+#             x=country,
+#             xref="x",
+#             yref="y",
+#             showarrow=False,
+#             font=dict(size=10)
+#         )
+#     )
+
 
 # Update layout for full-screen
 
 # Modify the height of the figure and add more styling
 fig.update_layout(
+    template="seaborn",
+    paper_bgcolor='#f8f9fa',  # Matches the webpage background
+    plot_bgcolor='#f8f9fa',
     autosize=True,
     margin=dict(l=0, r=0, t=0, b=0),  # Reducing bottom margin
-    height=600,  # Reduced height for better screen fit
+    height=600  ,  # Reduced height for better screen fit
     legend=dict(x=0.5, y=-0.1, xanchor="center", orientation="h"),
     geo=dict(
-        showcoastlines=True, coastlinecolor="LightBlue",
+        showcoastlines=True,
+        coastlinecolor="LightBlue",
         # showland=True, landcolor="LightGreen",
-        showocean=True, oceancolor="LightBlue",
-        showlakes=True, lakecolor="LightBlue",
-        showrivers=True, rivercolor="LightBlue"
-    ),
-    title=dict(
-        text="Global Energy Consumption by Country",
-        x=0.5,  # Centering title
-        xanchor="center"
-    )
-)
-
-
-# # Add labels for the top 15 countries
-# for i, row in df.nlargest(15, 'primary_energy_consumption').iterrows():
-#     fig.add_annotation(
-#         x=row['iso_code'],
-#         y=row['primary_energy_consumption'],
-#         text=row['country'],
-#         showarrow=True,
-#         arrowhead=1
-#     )
-
+        showocean=True,
+        oceancolor="LightBlue",
+        showlakes=True,
+        lakecolor="LightBlue",
+        showrivers=True,
+        rivercolor="LightBlue"))
 
 # Update the layout and styling
 layout = html.Div([
@@ -71,13 +93,14 @@ layout = html.Div([
                         width=12)),
             dbc.Row([
                 dbc.Col(
-                    dcc.Graph(id="insight-2", figure=fig,
-                              config={
-                                  #   "staticPlot": True,
-                                  "scrollZoom": False,
-                                  "doubleClick": False,
-                              }
-                              ),
+                    dcc.Graph(
+                        id="insight-2",
+                        figure=fig,
+                        config={
+                            #   "staticPlot": True,
+                            "scrollZoom": False,
+                            "doubleClick": False,
+                        }),
                     width=12)
             ]),
             dbc.Row(

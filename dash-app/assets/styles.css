@@ -1,23 +1,23 @@
 /* assets/style.css */
 .footer {
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   color: #5a5a5a;
   padding: 20px 0;
   font-size: 0.9em;
 }
-
+/* 
 .footer p {
   margin: 0;
-}
-
+} */
+/* 
 .footer a {
-    color: #007bff;  /* GitHub link color */
+    color: #007bff;  
     text-decoration: none;
-}
+} */
 
-.footer a:hover {
+/* .footer a:hover {
     text-decoration: underline;
-}
+} */
 
 .card:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -26,21 +26,22 @@
 }
 
 body {
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
   color: #333;
 }
 
-/* .navbar {
-  background-color: #007bff;
-} */
-/* 
-.card {
-  border: none;
-} */
-
-.btn-primary {
+.navbar {
   background-color: #007bff;
 }
+
+
+/* .card {
+  border: none;
+}  */
+
+/* .btn-primary {
+  background-color: #007bff;
+} */
 
 /* assets/style.css */
 .bi-github {

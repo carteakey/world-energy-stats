@@ -4,7 +4,7 @@ import pandas as pd
 import dash_bootstrap_components as dbc
 
 # Read the provided data into a DataFrame
-df_a = pd.read_csv("notebooks/output/4_electricity_gen_top15.csv")
+df_a = pd.read_csv("./assets/data/4_electricity_gen_top15.csv")
 
 # Sort the DataFrame based on non-renewable percentage for better visualization
 df_a = df_a.sort_values(by="total_consumption", ascending=True)
@@ -34,14 +34,17 @@ fig_a.add_trace(go.Bar(
 
 # Here we modify the tickvals and ticktext to align them with the original plot's style
 fig_a.update_layout(
+    template="seaborn",
+    paper_bgcolor='#f8f9fa',  # Matches the webpage background
+    plot_bgcolor='#f8f9fa',
     barmode="stack",
-    height=800,
+    height=600,
     xaxis=dict(
         title="Percentage",
         tickvals=[0, 20, 40, 60, 80, 100],
         ticktext=["0%", "20%", "40%", "60%", "80%", "100%"],
     ),
-    yaxis=dict(title="Country"),
+    # yaxis=dict(title="Country"),
     legend=dict(
         x=0.5,
         y=-0.1,
@@ -50,9 +53,7 @@ fig_a.update_layout(
         bgcolor="rgba(255, 255, 255, 0)",
         bordercolor="rgba(255, 255, 255, 0)",
     ),
-    paper_bgcolor="white",
-    plot_bgcolor="white",
-    margin=dict(l=0, r=0, t=30, b=0),
+    margin=dict(l=0, r=0, t=0, b=0),
 )
 
 # Add borders around the plot
@@ -73,42 +74,45 @@ subtext_a = (
     "the need for concerted efforts to promote sustainability."
 )
 
-df_b = pd.read_csv("notebooks/output/4_electricity_share_top15.csv")
+df_b = pd.read_csv("./assets/data/4_electricity_share_top15.csv")
 df_b = df_b.sort_values(by="electricity_generation", ascending=True)
 
-# Map 'max_share_name' to a color
-color_mapping = {
+#  Create a figure
+fig_b = go.Figure()
+
+# Define your categories and corresponding colors
+categories = {
     "coal_share_elec": "brown",
     "low_carbon_share_elec": "green",
     "gas_share_elec": "blue",
 }
-df_b["color"] = df_b["max_share_name"].map(color_mapping)
 
-# Sort values by 'Max Share' for better visualization
-# df.sort_values('max_share', ascending=True, inplace=True)
-
-# Create the bar chart
-fig_b = go.Figure(
-    go.Bar(
-        y=df_b["country"],
-        x=df_b["max_share"],
+# Add a trace for each category
+for category, color in categories.items():
+    filtered_df = df_b[df_b['max_share_name'] == category]
+    fig_b.add_trace(go.Bar(
+        y=filtered_df["country"],
+        x=filtered_df["max_share"],
         orientation="h",
-        marker_color=df_b["color"],  # Use the mapped colors
-        # Format the text labels
-        text=df_b["max_share"].apply(lambda x: f"{x:.2f}%"),
-        textposition="inside",
-    )
-)
+        marker_color=color,
+        name=category.split("_share_elec")[0].capitalize(),  # This will be the label in the legend
+        text=filtered_df["max_share"].apply(lambda x: f"{x:.2f}%"),
+        # textposition="inside"
+    ))
 
-# Customize the layout
+# Here we modify the tickvals and ticktext to align them with the original plot's style
 fig_b.update_layout(
+    template="seaborn",
+    paper_bgcolor='#f8f9fa',  # Matches the webpage background
+    plot_bgcolor='#f8f9fa',
+    barmode="stack",
+    height=600,
     xaxis=dict(
         title="Max Share (%)",
-        tickvals=list(range(0, 101, 10)),  # Set x-axis ticks to be every 10%
-        ticktext=[f"{i}%" for i in range(0, 101, 10)],
+        tickvals=[0, 20, 40, 60, 80, 100],
+        ticktext=["0%", "20%", "40%", "60%", "80%", "100%"],
     ),
-    yaxis=dict(title="Country"),
-    height=800,
+    # yaxis=dict(title="Country"),
     legend=dict(
         x=0.5,
         y=-0.1,
@@ -117,9 +121,9 @@ fig_b.update_layout(
         bgcolor="rgba(255, 255, 255, 0)",
         bordercolor="rgba(255, 255, 255, 0)",
     ),
-    paper_bgcolor="white",
-    plot_bgcolor="white",
+    margin=dict(l=0, r=0, t=0, b=0),
 )
+
 
 
 # Add borders around the plot
@@ -143,32 +147,27 @@ subtext_b = (
 
 # Define the layout for the Dash app using Bootstrap components
 layout = dbc.Container(
-    [dbc.Row(
-        dbc.Col(html.H2("Electricity Mix",
-                        className="text-center my-4"),
-                width=12)),
+    [
         dbc.Row(
-            [
-                dbc.Col(
-                    dcc.Graph(id="insight-4a", figure=fig_a),  # First plot
-                    width=6, lg=6
-                ),
-                dbc.Col(
-                    dcc.Graph(id="insight-4b", figure=fig_b),  # Second plot
-                    width=6, lg=6
-                )
-            ]
-    ),
-        dbc.Row(
+            dbc.Col(html.H2("Electricity Mix", className="text-center my-4"),
+                    width=12)),
+        dbc.Row([
             dbc.Col(
-                html.P(
-                    subtext_a + subtext_b,
-                    style={"textAlign": "center",
-                           "marginTop": "20px"},
-                    className="mx-auto"
-                ),
-                width=12
-            )
-    )
+                dcc.Graph(id="insight-4a", figure=fig_a),  # First plot
+                width=6,
+                lg=6),
+            dbc.Col(
+                dcc.Graph(id="insight-4b", figure=fig_b),  # Second plot
+                width=6,
+                lg=6)
+        ]),
+        dbc.Row(
+            dbc.Col(html.P(subtext_a + subtext_b,
+                           style={
+                               "textAlign": "center",
+                               "marginTop": "20px"
+                           },
+                           className="mx-auto"),
+                    width=12))
     ],
     fluid=True)

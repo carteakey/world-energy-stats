@@ -1,98 +1,63 @@
 from dash import Dash, html, dcc
 import dash_bootstrap_components as dbc
-from dash.dependencies import Input, Output,State
+from dash.dependencies import Input, Output, State
 
-from components import insight_1, insight_2, insight_3, insight_4a, insight_4b, insight_5
+from components import insight_1, insight_2, insight_3, insight_4, insight_5
 
-app = Dash(__name__, external_stylesheets=[dbc.themes.MINTY])
+app = Dash(__name__, external_stylesheets=[
+           dbc.themes.SANDSTONE, "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"])
+#    dbc.themes.LUX, "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"])
 
-# Define a Navbar component with dynamic styling
+# Set the title of the app
+app.title = "World Energy Statistics"
 
-# Define a Navbar component with dynamic styling
+# Define a Navbar component with links to each insight
 def create_navbar():
     navbar = dbc.Navbar(
-        dbc.Container(
-            [
+        [
+            dbc.Container([
+                html.A(
+                    dbc.Row(
+                        [
+                            dbc.Col(
+                                dbc.NavbarBrand("World Energy Statistics",
+                                                className="ms-2")),
+                        ],
+                        align="center",
+                        className="g-0 ",
+                    ),
+                    href="/",
+                    style={"textDecoration": "none"},
+                ),
                 dbc.NavbarToggler(id="navbar-toggler", n_clicks=0),
                 dbc.Collapse(
                     dbc.Nav(
                         [
-                            dbc.NavItem(dbc.NavLink("Energy Consumption Trends", href="/insight-1")),
-                            dbc.NavItem(dbc.NavLink("The Big Players", href="/insight-2")),
-                            # ... other insights
+                            dbc.NavLink("Energy Consumption Trends",
+                                        href="/insight-1"),
+                            dbc.NavLink("The Big Players", href="/insight-2"),
+                            dbc.NavLink("Energy Mix", href="/insight-3"),
+                            dbc.NavLink(
+                                "Electricity Mix",
+                                href="/insight-4"),
+                            dbc.NavLink("Energy, GDP and Population",
+                                        href="/insight-5"),
                         ],
-                        className="ms-auto", navbar=True
+                        className="ms-auto",
+                        navbar=True,
                     ),
                     id="navbar-collapse",
-                    navbar=True,
                     is_open=False,
+                    navbar=True,
                 ),
-                dbc.NavbarBrand("World Energy Statistics", href="/"),
-            ],
-            fluid=True,
-        ),
+            ]),
+        ],
         color="dark",
         dark=True,
-        sticky="top",
     )
     return navbar
 
 
-# Define a function to create a dynamic hero section
-def create_hero_section():
-    return dbc.Container(
-        [
-            html.H1("World Energy Statistics", className="display-3 text-center text-white"),
-            html.P(
-                "A Comprehensive Exploration of Global Energy Data",
-                className="lead text-center text-white"
-            ),
-            dbc.Button("Learn more", color="primary", href="#features", className="d-block mx-auto mt-3"),
-        ],
-        fluid=True,
-        className="py-5 my-5 bg-primary"
-    )
-
-# Define the homepage layout with feature cards for each insight
-def create_homepage():
-    return dbc.Container(
-        [
-            create_hero_section(),
-            html.H2("Insights Overview", className="text-center mt-5", id="features"),
-            dbc.Row(
-                [
-                    dbc.Col(create_feature_card("Energy Consumption Trends", "insight-1", "/assets/energy-consumption.jpg"), md=6, lg=4),
-                    dbc.Col(create_feature_card("The Big Players", "insight-2", "/assets/big-players.jpg"), md=6, lg=4),
-                    dbc.Col(create_feature_card("Energy Mix", "insight-3", "/assets/energy-mix.jpg"), md=6, lg=4),
-                    dbc.Col(create_feature_card("Electricity from Fossil Fuels and Renewables", "insight-4a", "/assets/electricity-fossil.jpg"), md=6, lg=4),
-                    dbc.Col(create_feature_card("Primary Energy Sources in Electricity Generation", "insight-4b", "/assets/primary-energy.jpg"), md=6, lg=4),
-                    dbc.Col(create_feature_card("Energy, GDP and Population", "insight-5", "/assets/energy-gdp.jpg"), md=6, lg=4),
-
-                ],
-                className="mb-5"
-            ),
-        ],
-        fluid=True
-    )
-
-# Function to create a feature card with hover effect
-def create_feature_card(title, href, img_src):
-    return dbc.Card(
-        dbc.CardBody(
-            [
-                dbc.CardImg(src=img_src, top=True, className="img-fluid"),
-                html.H5(title, className="card-title text-center mt-3"),
-                dbc.Button("Explore", href=f"/{href}", color="info", className="mt-2")
-            ],
-            className="text-center"
-        ),
-        className="h-100",
-        style={"transition": "transform .2s"},
-        # onMouseOver="this.style.transform='scale(1.1)'",
-        # onMouseOut="this.style.transform='scale(1)'"
-    )
-
-# Callbacks for the navbar toggle
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
@@ -103,23 +68,104 @@ def toggle_navbar_collapse(n, is_open):
         return not is_open
     return is_open
 
+# Define the homepage layout with feature cards for each insight
+
+
+def create_homepage():
+    return dbc.Container(
+        [
+            html.H1("Welcome to the World Energy Statistics Dashboard",
+                    className="text-center mt-4 mb-4"),
+            html.P(
+                "An Exploration of Global Energy Data.",
+                className="text-center mb-4"
+            ),
+            dbc.Row(
+                [
+                    dbc.Col(create_feature_card("Energy Consumption Trends",
+                            "insight-1", "/assets/energy-consumption.png"), md=6, lg=4),
+                    dbc.Col(create_feature_card("The Big Players",
+                            "insight-2", "/assets/big-players.png"), md=6, lg=4),
+                    dbc.Col(create_feature_card("Energy Mix", "insight-3",
+                            "/assets/energy-mix.png"), md=6, lg=4),
+                    dbc.Col(create_feature_card("Electricity Mix",
+                            "insight-4", "/assets/electricity-mix.png"), md=6, lg=4),
+                    dbc.Col(create_feature_card("Energy, GDP and Population",
+                            "insight-5", "/assets/energy-gdp-pop.png"), md=6, lg=4),
+                ],
+                className="mb-4 "
+            )
+        ],
+        fluid=True
+    )
+
+# Function to create a feature card for each insight
+
+
+def create_feature_card(title, href, img_src):
+    return dbc.Card(
+        [
+            dbc.CardImg(src=img_src, top=True, style={
+                        "height": "150px", "objectFit": "cover"}),
+            dbc.CardBody([
+                html.H5(title, className="card-title"),
+                dbc.Button("Explore", href=f"/{href}", color="dark")
+            ])
+        ],
+        style={"marginBottom": "20px"}
+    )
+
+
+def create_footer():
+    return html.Footer(
+        dbc.Container(
+            dbc.Row(
+                dbc.Col(
+                    [
+                        html.
+                        P("DS8003 - Final Project - Made by Hamna, Ruchi, Amarpreet, Kartikey",
+                          className="text-center"),
+                        html.A(
+                            [html.I(className="bi bi-github")
+                             ],  # Bootstrap icon for GitHub
+                            href="https://github.com/world-energy-stats",
+                            target="_blank",
+                            className="text-center d-block"),
+                    ],
+                    md=12),
+                justify="center",
+                align="center"),
+            fluid=True,
+            className="py-3"),
+        className="footer mt-5")
+
 
 # Define the app layout with URL routing
-app.layout = html.Div([
+app.layout = html.Div(className='bg-body-tertiary',children=[
     dcc.Location(id='url', refresh=False),
     create_navbar(),
-    html.Div(id='page-content')
+    html.Div(id='page-content'), create_footer()
 ])
 
 # Callback to update page content based on URL
+
+
 @app.callback(Output('page-content', 'children'),
               [Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/insight-1':
         return insight_1.layout
-    # ... handle other insights
+    elif pathname == '/insight-2':
+        return insight_2.layout
+    elif pathname == '/insight-3':
+        return insight_3.layout
+    elif pathname == '/insight-4':
+        return insight_4.layout
+    elif pathname == '/insight-5':
+        return insight_5.layout
     else:
         return create_homepage()  # default homepage content
 
+
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(host='0.0.0.0')

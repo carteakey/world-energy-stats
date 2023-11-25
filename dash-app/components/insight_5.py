@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 import dash_bootstrap_components as dbc
 
-df = pd.read_csv("notebooks/output/5_population_correlation.csv")
+df = pd.read_csv("./assets/data/5_population_correlation.csv")
 
 # Create the bubble chart
 fig = px.scatter(
@@ -20,15 +20,22 @@ fig = px.scatter(
 fig.update_xaxes(title_text="GDP Per Capita")
 fig.update_yaxes(title_text="Energy Per Capita (TWh)")
 fig.update_layout(
+    template="seaborn",
+    paper_bgcolor='#f8f9fa',  # Matches the webpage background
+    plot_bgcolor='#f8f9fa',
     showlegend=True,
-    paper_bgcolor="white",
-    plot_bgcolor="white",
-    height=500,
-    xaxis=dict(showline=True, linewidth=2, linecolor="black",
-               mirror=True, gridcolor="lightgrey"),
-    yaxis=dict(showline=True, linewidth=2, linecolor="black",
-               mirror=True, gridcolor="lightgrey")
-)
+    margin=dict(l=0, r=0, t=0, b=0),  # Reducing bottom margin
+    height=600,
+    xaxis=dict(showline=True,
+               linewidth=2,
+               linecolor="black",
+               mirror=True,
+               gridcolor="lightgrey"),
+    yaxis=dict(showline=True,
+               linewidth=2,
+               linecolor="black",
+               mirror=True,
+               gridcolor="lightgrey"))
 
 # Consolidate subtext into a single string
 subtext = (
