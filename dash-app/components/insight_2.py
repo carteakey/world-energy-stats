@@ -1,27 +1,27 @@
-from dash import html, dcc
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
-import dash_bootstrap_components as dbc
+# Organize imports
 import pandas as pd
 import plotly.express as px
+from dash import html, dcc
+import dash_bootstrap_components as dbc
 
+# Read the dataset
 df = pd.read_csv("./assets/data/2_energy_consumption_top15.csv")
 
-# Rank countries based on energy consumption and categorize them
+# Rank countries and categorize based on energy consumption
 df["rank"] = df["primary_energy_consumption"].rank(ascending=False)
 df["category"] = pd.cut(
     df["rank"], bins=[0, 15, 100, 229],
     labels=["Top 15 - 70% Consumption", "Next 85 Countries", "Remaining Countries"]
 )
 
+# Define color map for the categories
 color_discrete_map = {
     "Top 15 - 70% Consumption": "darkred",
     "Next 85 Countries": "orange",
     "Remaining Countries": "lightyellow",
 }
 
-
-# Create the Plotly figure
+# Create a choropleth map with Plotly Express
 fig = px.choropleth(
     df,
     locations="iso_code",
@@ -31,97 +31,50 @@ fig = px.choropleth(
     color_discrete_map=color_discrete_map,
 )
 
-# fig.add_annotation(
-#     dict(
-#         x=0.5,
-#         y=1.15,
-#         xref="paper",
-#         yref="paper",
-#         text="Top 15 countries account for 70% of global energy consumption",
-#         showarrow=False,
-#         font=dict(size=15, color="red"),
-#         align="center"
-#     )
-# )
-
-# # Sort the DataFrame to ensure the top 15 are correctly identified
-# top_15_countries = df.nlargest(
-#     15, 'primary_energy_consumption')['iso_code'].tolist()
-
-# for country in top_15_countries:
-#     fig.add_annotation(
-#         dict(
-#             text=country,
-#             x=country,
-#             xref="x",
-#             yref="y",
-#             showarrow=False,
-#             font=dict(size=10)
-#         )
-#     )
-
-
-# Update layout for full-screen
-
-# Modify the height of the figure and add more styling
+# Update figure layout
 fig.update_layout(
     template="seaborn",
-    paper_bgcolor='#f8f9fa',  # Matches the webpage background
+    paper_bgcolor='#f8f9fa',
     plot_bgcolor='#f8f9fa',
     autosize=True,
-    margin=dict(l=0, r=0, t=0, b=0),  # Reducing bottom margin
-    height=600  ,  # Reduced height for better screen fit
+    margin=dict(l=0, r=0, t=0, b=0),
+    height=600,
     legend=dict(x=0.5, y=-0.1, xanchor="center", orientation="h"),
     geo=dict(
-        showcoastlines=True,
-        coastlinecolor="LightBlue",
-        # showland=True, landcolor="LightGreen",
-        showocean=True,
-        oceancolor="LightBlue",
-        showlakes=True,
-        lakecolor="LightBlue",
-        showrivers=True,
-        rivercolor="LightBlue"))
+        showcoastlines=True, coastlinecolor="LightBlue",
+        showocean=True, oceancolor="LightBlue",
+        showlakes=True, lakecolor="LightBlue",
+        showrivers=True, rivercolor="LightBlue"
+    )
+)
 
-# Update the layout and styling
+# Define explanatory text
+explanatory_text = (
+    "Top 15 countries, accounting for 75% of global energy consumption, highlight the "
+    "importance of major economies leading the clean energy transition. Over 130 countries "
+    "with consumption below 100 tWH face the dual challenge of energy poverty and sustainable "
+    "development. These nations have a unique opportunity to learn from the larger economies' "
+    "experiences, adopting best practices and leapfrogging to cleaner, more sustainable energy solutions."
+)
+
+# Define the layout for the Dash app
 layout = html.Div([
-    dbc.Container(  # Use a container to control width
+    dbc.Container(
         [
             dbc.Row(
-                dbc.Col(html.H2("The Big Players",
-                                className="text-center my-4"),
-                        width=12)),
+                dbc.Col(html.H2("The Big Players in Global Energy Consumption", className="text-center my-4"), width=12)
+            ),
             dbc.Row([
-                dbc.Col(
-                    dcc.Graph(
-                        id="insight-2",
-                        figure=fig,
-                        config={
-                            #   "staticPlot": True,
-                            "scrollZoom": False,
-                            "doubleClick": False,
-                        }),
-                    width=12)
+                dbc.Col(dcc.Graph(id="insight-2", figure=fig), width=12)
             ]),
             dbc.Row(
                 dbc.Col(
-                    html.P(
-                        "Top 15 countries, accounting for 75% of global energy consumption, highlight the "
-                        "importance of major economies leading the clean energy transition. Over 130 countries "
-                        "with consumption below 100 tWH face the dual challenge of energy poverty and sustainable "
-                        "development. These nations have a unique opportunity to learn from the larger economies' "
-                        "experiences, adopting best practices and leapfrogging to cleaner, more sustainable energy solutions.",
-                        style={
-                            "textAlign": "justify",
-                            "marginTop": "20px"
-                        },
-                        className="mx-auto"  # Centering the text block
-                    ),
-                    width={
-                        "size": 10,
-                        "offset": 1
-                    }  # Limiting the width and centering the column
-                ))
+                    html.P(explanatory_text, style={"textAlign": "justify", "marginTop": "20px"}, className="mx-auto"),
+                    width={"size": 10, "offset": 1}
+                )
+            )
         ],
-        fluid=True)
+        fluid=True
+    )
 ])
+
