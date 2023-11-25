@@ -41,10 +41,6 @@ Airflow
 - [x] mount hadoop
 - [x] mount notebooks
 
-### COMMANDS
-
-nohup FLASK_APP=app && flask run --host=0.0.0.0 --debug 1>flask-server.log &
-
 ### References
 
 https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-all-spark-notebook

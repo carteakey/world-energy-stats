@@ -6,10 +6,12 @@ from components import insight_1, insight_2, insight_3, insight_4, insight_5
 
 app = Dash(__name__, external_stylesheets=[
            dbc.themes.SANDSTONE, "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"])
-#    dbc.themes.LUX, "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css"])
 
 # Set the title of the app
 app.title = "World Energy Statistics"
+
+# Set Server
+server = app.server
 
 # Define a Navbar component with links to each insight
 def create_navbar():
