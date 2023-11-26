@@ -16,7 +16,7 @@ df["category"] = pd.cut(
 
 # Define color map for the categories
 color_discrete_map = {
-    "Top 15 - 70% Consumption": "darkred",
+    "Top 15 - 75% Consumption": "darkred",
     "Next 85 Countries": "orange",
     "Remaining Countries": "lightyellow",
 }

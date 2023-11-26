@@ -34,7 +34,7 @@ energy_sources = [
     ("perc_oil_consumption", "Oil", "brown", True),
     ("perc_solar_consumption", "Solar", "orange", True),
     ("perc_wind_consumption", "Wind", "grey", True),
-    ("perc_ren_consumption", "Renewables", "blue", False)  # Hidden initially
+    ("perc_ren_consumption", "Renewables", "teal", False)  # Hidden initially
 ]
 
 for source_column, name, color, visible in energy_sources:
