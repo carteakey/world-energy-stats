@@ -25,6 +25,21 @@ Airflow
 
 ### Links
 
+
+
+### Reference
+This project uses the awesome data from OWID.
+
+Hannah Ritchie, Max Roser and Pablo Rosado (2022) - "Energy". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/energy' [Online Resource]
+https://ourworldindata.org/energy#citation
+
+
+## Running Locally
+
+```bash
+docker compose up airflow-init
+```
+
 | App     | Server             | Link                          |
 | ------- | ------------------ | ----------------------------- |
 | Hadoop  | ResourceManager UI | http://localhost:8088/cluster |
@@ -33,31 +48,6 @@ Airflow
 | Spark   | Master             | http://localhost:8080/        |
 | Airflow |                    |                               |
 
-
-
-### Tasks
-
-- [x] Forward fill missing data
-- [x] combine airflow
-- [ ] airflow dags
-- [x] remove presto
-- [x] mount hadoop
-- [x] mount notebooks
-
-### References
-
-https://jupyter-docker-stacks.readthedocs.io/en/latest/using/selecting.html#jupyter-all-spark-notebook
-https://hub.docker.com/r/apache/hadoop
-https://stackoverflow.com/questions/38088279/communication-between-multiple-docker-compose-projects
-
-Hannah Ritchie, Max Roser and Pablo Rosado (2022) - "Energy". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/energy' [Online Resource]
-https://ourworldindata.org/energy#citation
-
-docker rmi $(docker images -a -q)
-
-curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.7.3/docker-compose.yaml'
-
-docker compose up airflow-init
 
 ## Project Structure
 ```~/world-energy-stats# tree --gitignore -L 3
@@ -95,35 +85,11 @@ docker compose up airflow-init
 │   └── owid-energy-data.csv
 ├── notebooks
 │   ├── clean
-│   │   ├── biofuel.csv
-│   │   ├── coal.csv
-│   │   ├── electricity_imports.csv
-│   │   ├── fossil.csv
-│   │   ├── gas.csv
-│   │   ├── general.csv
-│   │   ├── greenhouse_gas.csv
-│   │   ├── hydro.csv
-│   │   ├── low_carbon.csv
-│   │   ├── nuclear.csv
-│   │   ├── oil.csv
-│   │   ├── other_renewables.csv
-│   │   ├── renewables.csv
-│   │   ├── solar.csv
-│   │   ├── wind.csv
-│   │   └── world.csv
 │   ├── eda.ipynb
 │   ├── hive_queries_ak-1.ipynb
 │   ├── hive_queries_ak.ipynb
 │   ├── hive_queries_kc.ipynb
 │   ├── output
-│   │   ├── 1_energy_overview.csv
-│   │   ├── 2_energy_consumption_pct_rem.sql.csv
-│   │   ├── 2_energy_consumption_pct_top15.csv
-│   │   ├── 2_energy_consumption_top15.csv
-│   │   ├── 3_energy_breakdown_top15.csv
-│   │   ├── 4_electricity_gen_top15.csv
-│   │   ├── 4_electricity_share_top15.csv
-│   │   └── 5_population_correlation.csv
 │   ├── spark_etl_countries.ipynb
 │   ├── spark_etl_world.ipynb
 │   ├── spark_hive_test.ipynb
@@ -152,7 +118,5 @@ docker compose up airflow-init
     ├── combined_energy_data.sql
     └── energy_share.sql
 
-21 directories, 69 files
+21 directories, 45 files
 ```
-
-30 directories, 94 files

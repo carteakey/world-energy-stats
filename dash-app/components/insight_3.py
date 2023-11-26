@@ -58,7 +58,7 @@ fig.update_layout(
 )
 
 # Add annotations for each energy source
-for source_column, name, color in energy_sources:
+for source_column, name, color,visible in energy_sources:
     last_year = df["year"].iloc[-1]
     last_value = df[source_column].iloc[-1]
     fig.add_annotation(
