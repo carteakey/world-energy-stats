@@ -54,7 +54,7 @@ explanatory_text = (
     "importance of major economies leading the clean energy transition. Over 130 countries "
     "with consumption below 100 tWH face the dual challenge of energy poverty and sustainable "
     "development. These nations have a unique opportunity to learn from the larger economies' "
-    "experiences, adopting best practices and leapfrogging to cleaner, more sustainable energy solutions."
+    "experiences, adopting best practices and pivot to cleaner, more sustainable energy solutions."
 )
 
 # Define the layout for the Dash app

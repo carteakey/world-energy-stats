@@ -12,11 +12,10 @@ Airflow
 5 - copies the final clean data from hadoop fs for plotting - HIVE SQL
 6 - creates plots and runs the dashboard - XX
 
-## Reference
+## Citation
 This project uses the awesome data from OWID.
 
-Hannah Ritchie, Max Roser and Pablo Rosado (2022) - "Energy". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/energy' [Online Resource]
-https://ourworldindata.org/energy#citation
+Hannah Ritchie, Max Roser and Pablo Rosado (2023) - “Energy” Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/energy' [Online Resource]
 
 
 ## Running Locally
@@ -31,8 +30,20 @@ docker compose up airflow-init
 | Hadoop  | Namenode UI        | http://localhost:9870/        |
 | Jupyter | Notebook UI        | http://localhost:8888/        |
 | Spark   | Master             | http://localhost:8080/        |
-| Airflow |                    |                               |
+| Spark   | Worker 1           | http://localhost:8080/        |
+| Spark   | Worker 2           | http://localhost:8080/        |
+| Airflow  |                    | http://localhost:8082/        |
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## Project Structure
 ```~/world-energy-stats# tree --gitignore -L 3
@@ -106,13 +117,3 @@ docker compose up airflow-init
 21 directories, 45 files
 ```
 
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->

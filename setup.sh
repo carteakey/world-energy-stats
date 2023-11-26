@@ -25,20 +25,11 @@ sudo chmod 777 data
 echo "Starting Docker containers..."
 docker compose up -d
 
-# Step 5: Copy files to Hadoop
-echo "Copying files to Hadoop..."
-docker exec -it resourcemanager /bin/bash -c "\
-    hadoop fs -mkdir /energy-data && \
-    cd /opt/energy-data && \
-    hadoop fs -put owid-energy-data.csv /energy-data/ && \
-    hadoop fs -ls /energy-data/"
-
-# Step 6: Check Jupyter server
+# Step 5: Check Jupyter server
 docker exec spark-notebook jupyter server list
 
-# Step 7: Create database
+# Step 6: Create database
 echo "Creating Hive database..."
 docker exec -it hive-server hive -e "CREATE DATABASE wes"
-
 
 echo "Setup complete!"

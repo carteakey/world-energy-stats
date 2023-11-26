@@ -36,10 +36,12 @@ fig_a.update_layout(
     height=600,
     xaxis=dict(title="Percentage", tickvals=[0, 20, 40, 60, 80, 100], ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
     legend=dict(x=0.5, y=-0.1, xanchor="center", orientation="h"),
-    margin=dict(l=0, r=0, t=0, b=0),
-    xaxes=dict(showline=True, linewidth=2, linecolor="black", mirror=True, showgrid=True, gridwidth=1, gridcolor="lightgrey"),
-    yaxes=dict(showline=True, linewidth=2, linecolor="black", mirror=True)
+    margin=dict(l=0, r=0, t=0, b=0)
 )
+
+# Add border around the plot
+fig_a.update_xaxes(showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey")
+fig_a.update_yaxes(showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey")
 
 # Read the data for the second figure
 df_b = pd.read_csv("./assets/data/4_electricity_share_top15.csv")
@@ -72,24 +74,49 @@ fig_b.update_layout(
     height=600,
     xaxis=dict(title="Max Share (%)", tickvals=[0, 20, 40, 60, 80, 100], ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
     legend=dict(x=0.5, y=-0.1, xanchor="center", orientation="h"),
-    margin=dict(l=0, r=0, t=0, b=0),
-    xaxes=dict(showline=True, linewidth=2, linecolor="black", mirror=True, showgrid=True, gridwidth=1, gridcolor="lightgrey"),
-    yaxes=dict(showline=True, linewidth=2, linecolor="black", mirror=True)
-)
+    margin=dict(l=0, r=0, t=0, b=0))
+
+# Add border around the plot
+fig_b.update_xaxes(showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey")
+fig_b.update_yaxes(showline=True, linewidth=2, linecolor="black", gridcolor="lightgrey")
 
 # Define subtexts for both plots
-subtext_a = ("Countries like Brazil, Canada, and France, among the top electricity-generating countries, distinguish themselves by prioritizing renewable energy...")
-subtext_b = ("The 'Max Share' % reveals key insights into each country's primary electricity generation sources in 2021...")
+
+subtext_a = (
+    "Countries like Brazil, Canada, and France, among the top electricity-generating "
+    "countries, distinguish themselves by prioritizing renewable energy, with shares "
+    "of 76.771%, 68.17%, and 22.232%, respectively. In contrast, major contributors "
+    "like China, the United States, India, Russia, and Japan exhibit a higher reliance "
+    "on fossil fuels in their electricity generation. This disparity underscores the "
+    "global challenge of transitioning towards cleaner energy sources and emphasizes "
+    "the need for concerted efforts to promote sustainability."
+)
+subtext_b = (
+    "The 'Max Share' % reveals key insights into each country's primary "
+    "electricity generation sources in 2021. For instance, China relies heavily on coal "
+    "(62.932%), the United States emphasizes low-carbon sources (39.513%), and India "
+    "predominantly uses coal (74.173%). Brazil and Canada showcase a commitment to "
+    "low-carbon energy, with shares of 78.99% and 82.126%, respectively. France stands "
+    "out with a remarkable 91.159% share from low-carbon sources, primarily nuclear "
+    "and renewables."
+)
 
 # Define the layout for the Dash app
-layout = dbc.Container(
-    [
-        dbc.Row(dbc.Col(html.H2("Electricity Mix", className="text-center my-4"), width=12)),
-        dbc.Row([
-            dbc.Col(dcc.Graph(id="insight-4a", figure=fig_a), width=6, lg=6),
-            dbc.Col(dcc.Graph(id="insight-4b", figure=fig_b), width=6, lg=6)
-        ]),
-        dbc.Row(dbc.Col(html.P(subtext_a + subtext_b, style={"textAlign": "center", "marginTop": "20px"}, className="mx-auto"), width=12))
-    ],
-    fluid=True
-)
+layout = dbc.Container([
+    dbc.Row(
+        dbc.Col(html.H2("Electricity Mix", className="text-center my-4"),
+                width=12)),
+    dbc.Row([
+        dbc.Col(dcc.Graph(id="insight-4a", figure=fig_a), width=6, lg=6),
+        dbc.Col(dcc.Graph(id="insight-4b", figure=fig_b), width=6, lg=6)
+    ]),
+    dbc.Row(
+        dbc.Col(html.P(subtext_a + subtext_b,
+                       style={
+                           "textAlign": "center",
+                           "marginTop": "20px"
+                       },
+                       className="mx-auto"),
+                width=12))
+],
+                       fluid=True)
