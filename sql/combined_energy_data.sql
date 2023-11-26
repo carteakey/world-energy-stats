@@ -1,4 +1,4 @@
-CREATE VIEW combined_energy_data AS
+CREATE OR REPLACE VIEW combined_energy_data AS
 SELECT 
     gen.*,
     bio.biofuel_consumption, bio.biofuel_electricity, bio.biofuel_share_elec, bio.biofuel_share_energy,

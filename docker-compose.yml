@@ -27,6 +27,9 @@ x-airflow-common:
     # for other purpose (development, test and especially production usage) build/extend Airflow image.
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
   volumes:
+    - ./sql:/opt/sql
+    - ./scripts:/opt/scripts
+    - /var/run/docker.sock:/var/run/docker.sock
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
@@ -40,6 +43,14 @@ x-airflow-common:
       condition: service_healthy
 
 services:
+  docker-proxy:
+    image: bobrik/socat
+    command: "TCP4-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock"
+    ports:
+      - "2376:2375"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
   namenode:
     image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
     container_name: namenode
@@ -49,6 +60,7 @@ services:
       - 9010:9000
     volumes:
       - hadoop_namenode:/hadoop/dfs/name
+      - ./scripts:/opt/scripts
     environment:
       - CLUSTER_NAME=test
       - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
@@ -61,6 +73,7 @@ services:
     restart: always
     volumes:
       - hadoop_datanode:/hadoop/dfs/data
+      - ./scripts:/opt/scripts
     environment:
       SERVICE_PRECONDITION: "namenode:9870"
       CORE_CONF_fs_defaultFS: hdfs://namenode:9000
@@ -77,6 +90,9 @@ services:
       - "8088:8088"
     volumes:
       - ./energy-data:/opt/energy-data
+      - ./scripts:/opt/scripts
+      - ./dash-app/assets/data:/opt/data/
+
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"
     env_file:
@@ -87,8 +103,9 @@ services:
     container_name: nodemanager
     restart: always
     environment:
-
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    volumes:
+      - ./scripts:/opt/scripts
     env_file:
       - ./docker-compose.env
 
@@ -113,6 +130,7 @@ services:
       - INIT_DAEMON_STEP=setup_spark
       - CORE_CONF_fs_defaultFS=hdfs://namenode:9000
     volumes:
+      - ./sql:/opt/sql
       - ./scripts:/opt/scripts
 
   spark-worker-1:
@@ -383,7 +401,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-      
+    
+    
 volumes:
   hadoop_namenode:
   hadoop_datanode:

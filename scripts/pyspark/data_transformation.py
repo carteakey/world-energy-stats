@@ -53,6 +53,5 @@ for col in temp_column:
 # Write the DataFrame to a Hive table
 df.write.saveAsTable("wes.transformed_energy_data")
 
-
 # Stop the SparkSession
 spark.stop()

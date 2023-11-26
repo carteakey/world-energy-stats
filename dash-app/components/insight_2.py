@@ -65,7 +65,16 @@ layout = html.Div([
                 dbc.Col(html.H2("The Big Players in Global Energy Consumption", className="text-center my-4"), width=12)
             ),
             dbc.Row([
-                dbc.Col(dcc.Graph(id="insight-2", figure=fig), width=12)
+                dbc.Col(
+                    dcc.Graph(
+                        id="insight-2",
+                        figure=fig,
+                        config={
+                            #   "staticPlot": True,
+                            "scrollZoom": False,
+                            "doubleClick": False,
+                        }),
+                    width=12)
             ]),
             dbc.Row(
                 dbc.Col(

@@ -4,13 +4,6 @@ https://world-energy-stats-34l3s.ondigitalocean.app/
 
 ## Overview
 
-Airflow
-1 - copies file from local to hdfs - Hadoop FS
-2 - run spark transformation jobs - SPARK / SPARK SQL
-3 - create intermediate views/tables - HIVE SQL
-4 - runs sql queries and saves to hadoop fs - HIVE SQL
-5 - copies the final clean data from hadoop fs for plotting - HIVE SQL
-6 - creates plots and runs the dashboard - XX
 
 ## Citation
 This project uses the awesome data from OWID.
@@ -23,6 +16,16 @@ Hannah Ritchie, Max Roser and Pablo Rosado (2023) - “Energy” Published onlin
 ```bash
 docker compose up airflow-init
 ```
+
+```bash
+docker compose down --volumes --remove-orphans
+```
+
+```bash
+docker exec spark-notebook jupyter server list
+docker exec -it hive-server hive
+```
+<!-- # vi  /var/snap/docker/current/config/daemon.json -->
 
 | App     | Server             | Link                          |
 | ------- | ------------------ | ----------------------------- |

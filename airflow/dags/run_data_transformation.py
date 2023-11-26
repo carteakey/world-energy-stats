@@ -1,5 +1,5 @@
 from airflow import DAG
-from airflow.operators.docker_operator import DockerOperator
+from airflow.operators.bash_operator import BashOperator
 from datetime import datetime, timedelta
 
 default_args = {
@@ -16,15 +16,12 @@ dag = DAG(
     "data_transformation",
     default_args=default_args,
     schedule_interval=timedelta(days=1),
+    tags=["world-energy-data"],
+    catchup=False  # Prevents backfilling
 )
 
-t1 = DockerOperator(
+t1 = BashOperator(
     task_id="run_data_transformation",
-    image="bde2020/spark-master:3.3.0-hadoop3.3",
-    api_version="auto",
-    docker_url='unix:///var/run/docker.sock',
-    # auto_remove=True,
-    command="/spark/bin/spark-submit --master spark://spark-master:7077 /opt/scripts/pyspark/data_transformation.py",
-    network_mode="bridge",
+    bash_command="docker exec spark-master /spark/bin/spark-submit --master spark://spark-master:7077 /opt/scripts/pyspark/data_transformation.py",
     dag=dag,
 )

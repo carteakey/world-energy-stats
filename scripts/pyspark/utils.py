@@ -1,6 +1,10 @@
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
+# Post-processing to rename the output file
+import os
+import shutil
+
 
 def run_spark_sql(sql_file_path, save_file=None):
     """
@@ -24,18 +28,18 @@ def run_spark_sql(sql_file_path, save_file=None):
     spark.sql("USE wes")
 
     # Read SQL query from the file
-    with open("sql/" + sql_file_path, "r") as file:
+    with open(sql_file_path, "r") as file:
         sql_query = file.read()
 
     # Execute the SQL query
     result = spark.sql(sql_query)
 
-    # Show the first 20 rows
-    result.show()
-
     # Save the result to a file if a save path is provided
     if save_file:
-        result.toPandas().to_csv("output/" + save_file, index=False)
+        result.coalesce(1).write.option("mode","append").option("header","true").csv("hdfs://namenode:9000/energy-data/output/" + save_file)
+
+    # Show the first 20 rows
+    result.show()
 
     # Stop the Spark Session
     spark.stop()
@@ -135,6 +139,7 @@ def count_nulls_by_country(df):
 
 # # Show the results
 # null_counts_fossil.show(n=300)
+
 
 def filter_rows_by_null_threshold(df):
     """
