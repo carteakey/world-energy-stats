@@ -2,15 +2,7 @@
 
 https://world-energy-stats-34l3s.ondigitalocean.app/
 
-
-AIRFLOW
-HADOOP HDFS
-SPARK
-DOCKER
-MAP REDUCE
-PLOTLY
-JUPYTER
-HIVE
+## Overview
 
 Airflow
 1 - copies file from local to hdfs - Hadoop FS
@@ -20,14 +12,7 @@ Airflow
 5 - copies the final clean data from hadoop fs for plotting - HIVE SQL
 6 - creates plots and runs the dashboard - XX
 
-
-`docker compose up -d` - Spin up the containers.
-
-### Links
-
-
-
-### Reference
+## Reference
 This project uses the awesome data from OWID.
 
 Hannah Ritchie, Max Roser and Pablo Rosado (2022) - "Energy". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/energy' [Online Resource]
@@ -120,3 +105,14 @@ docker compose up airflow-init
 
 21 directories, 45 files
 ```
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
