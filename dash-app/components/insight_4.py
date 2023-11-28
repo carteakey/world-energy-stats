@@ -114,9 +114,9 @@ layout = dbc.Container([
         dbc.Col(html.P(subtext_a + subtext_b,
                        style={
                            "textAlign": "center",
-                           "marginTop": "20px"
+                           "marginTop": "0px"
                        },
                        className="mx-auto"),
-                width=12))
+                width={"size": 10, "offset": 1}))
 ],
                        fluid=True)

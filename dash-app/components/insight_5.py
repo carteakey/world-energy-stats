@@ -43,7 +43,7 @@ layout = dbc.Container(
     [
         dbc.Row(dbc.Col(html.H2("Energy, GDP, and Population Correlation", className="text-center my-4"), width=12)),
         dbc.Row(dbc.Col(dcc.Graph(id="insight-5", figure=fig), width=12)),
-        dbc.Row(dbc.Col(html.P(subtext, style={"textAlign": "justify", "marginTop": "20px"}, className="mx-auto"), width={"size": 10, "offset": 1}))
+        dbc.Row(dbc.Col(html.P(subtext, style={"textAlign": "justify", "marginTop": "0px"}, className="mx-auto"), width={"size": 10, "offset": 1}))
     ],
     fluid=True
 )

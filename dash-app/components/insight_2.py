@@ -78,7 +78,7 @@ layout = html.Div([
             ]),
             dbc.Row(
                 dbc.Col(
-                    html.P(explanatory_text, style={"textAlign": "justify", "marginTop": "20px"}, className="mx-auto"),
+                    html.P(explanatory_text, style={"textAlign": "justify", "marginTop": "0px"}, className="mx-auto"),
                     width={"size": 10, "offset": 1}
                 )
             )

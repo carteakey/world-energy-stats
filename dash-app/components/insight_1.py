@@ -66,7 +66,7 @@ layout = dbc.Container(
             dbc.Col(dcc.Graph(id="insight-1", figure=fig), width=12)
         ),
         dbc.Row(
-            dbc.Col(html.P(subtext, style={"textAlign": "justify", "marginTop": "20px"}, className="mx-auto"), width={"size": 10, "offset": 1})
+            dbc.Col(html.P(subtext, style={"textAlign": "justify", "marginTop": "0px"}, className="mx-auto"), width={"size": 10, "offset": 1})
         )
     ],
     fluid=True
