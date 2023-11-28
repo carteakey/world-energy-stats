@@ -11,7 +11,7 @@ df = pd.read_csv("./assets/data/2_energy_consumption_top15.csv")
 df["rank"] = df["primary_energy_consumption"].rank(ascending=False)
 df["category"] = pd.cut(
     df["rank"], bins=[0, 15, 100, 229],
-    labels=["Top 15 - 70% Consumption", "Next 85 Countries", "Remaining Countries"]
+    labels=["Top 15 - 75% Consumption", "Next 85 Countries", "Remaining Countries"]
 )
 
 # Define color map for the categories
@@ -33,7 +33,7 @@ fig = px.choropleth(
 
 # Update figure layout
 fig.update_layout(
-    template="seaborn",
+    # template="seaborn",
     paper_bgcolor='#f8f9fa',
     plot_bgcolor='#f8f9fa',
     autosize=True,

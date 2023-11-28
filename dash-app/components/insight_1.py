@@ -53,7 +53,7 @@ fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor="lightgrey")
 subtext = (
     "The world's energy consumption has surged by over 70 percent in the past three decades. "
     "A snapshot of global energy utilization in the year 2021 reveals a total consumption of "
-    "164710.98 terawatt-hours (tWH) of primary energy. We see that global energy consumption has increased nearly every year for more than 3 decades, with exceptions in 2009 and 2020."
+    "165,000 terawatt-hours (tWH) of primary energy. We see that global energy consumption has increased nearly every year for more than 3 decades, with exceptions in 2009 and 2020."
 )
 
 # Define the layout for the Dash app

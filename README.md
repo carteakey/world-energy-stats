@@ -25,13 +25,19 @@ docker compose down --volumes --remove-orphans
 docker exec spark-notebook jupyter server list
 docker exec -it hive-server hive
 ```
+
+```bash
+hdfs dfs -ls -R /app-logs
+```
 <!-- # vi  /var/snap/docker/current/config/daemon.json -->
 
 | App     | Server             | Link                          |
 | ------- | ------------------ | ----------------------------- |
 | Hadoop  | ResourceManager UI | http://localhost:8088/cluster |
 | Hadoop  | Namenode UI        | http://localhost:9870/        |
+| Hadoop  | NodeManager UI     | 
 | Jupyter | Notebook UI        | http://localhost:8888/        |
+| 
 | Spark   | Master             | http://localhost:8080/        |
 | Spark   | Worker 1           | http://localhost:8080/        |
 | Spark   | Worker 2           | http://localhost:8080/        |

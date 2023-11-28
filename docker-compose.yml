@@ -104,6 +104,8 @@ services:
     restart: always
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    ports:
+      - "8042:8042"
     volumes:
       - ./scripts:/opt/scripts
     env_file:
@@ -115,6 +117,8 @@ services:
     restart: always
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088"
+    ports:
+      - "8188:8188"
     volumes:
       - hadoop_historyserver:/hadoop/yarn/timeline
     env_file:
