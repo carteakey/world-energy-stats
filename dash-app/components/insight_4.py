@@ -34,7 +34,7 @@ fig_a.update_layout(
     plot_bgcolor='#f8f9fa',
     barmode="stack",
     height=600,
-    xaxis=dict(title="Percentage", tickvals=[0, 20, 40, 60, 80, 100], ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
+    xaxis=dict(title="Percentage of Electricity Generation", tickvals=[0, 20, 40, 60, 80, 100], ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
     legend=dict(x=0.5, y=-0.1, xanchor="center", orientation="h"),
     margin=dict(l=0, r=0, t=0, b=0)
 )
@@ -72,7 +72,7 @@ fig_b.update_layout(
     plot_bgcolor='#f8f9fa',
     barmode="stack",
     height=600,
-    xaxis=dict(title="Max Share (%)", tickvals=[0, 20, 40, 60, 80, 100], ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
+    xaxis=dict(title="Max Share (%) of Electricity Consumption", tickvals=[0, 20, 40, 60, 80, 100], ticktext=["0%", "20%", "40%", "60%", "80%", "100%"]),
     legend=dict(x=0.5, y=-0.1, xanchor="center", orientation="h"),
     margin=dict(l=0, r=0, t=0, b=0))
 
