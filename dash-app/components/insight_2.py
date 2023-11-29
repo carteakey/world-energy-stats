@@ -11,14 +11,14 @@ df = pd.read_csv("./assets/data/2_energy_consumption_top15.csv")
 df["rank"] = df["primary_energy_consumption"].rank(ascending=False)
 df["category"] = pd.cut(
     df["rank"], bins=[0, 15, 100, 229],
-    labels=["Top 15 - 75% Consumption", "Next 85 Countries", "Remaining Countries"]
+    labels=["Top 15 - 75% Consumption", "Next 85 Countries", "Remaining 130 Countries"]
 )
 
 # Define color map for the categories
 color_discrete_map = {
     "Top 15 - 75% Consumption": "darkred",
     "Next 85 Countries": "orange",
-    "Remaining Countries": "lightyellow",
+    "Remaining 130 Countries": "lightyellow",
 }
 
 # Create a choropleth map with Plotly Express
