@@ -13,7 +13,7 @@ spark = (
 # Read the DataFrame from the Hive table
 df = spark.sql("SELECT * FROM wes.transformed_energy_data")
 
-### LEVEL 1 CATEGORIZATION
+# LEVEL 1 CATEGORIZATION
 
 # Primary Key Columns
 primary_keys = ["country", "year", "iso_code"]
@@ -188,21 +188,42 @@ filtered_df_other_renewables = filter_df_by_threshold(df_other_renewables, 0)
 filtered_df_low_carbon = filter_df_by_threshold(df_low_carbon, 0)
 filtered_df_electricity_imports = filter_df_by_threshold(df_electricity_imports, 0)
 
-# save to hive tables.
-filtered_df_general.write.mode("overwrite").saveAsTable("wes.general")
-filtered_df_biofuel.write.mode("overwrite").saveAsTable("wes.biofuel")
-filtered_df_coal.write.mode("overwrite").saveAsTable("wes.coal")
-filtered_df_gas.write.mode("overwrite").saveAsTable("wes.gas")
-filtered_df_oil.write.mode("overwrite").saveAsTable("wes.oil")
-filtered_df_fossil.write.mode("overwrite").saveAsTable("wes.fossil")
-filtered_df_greenhouse_gas.write.mode("overwrite").saveAsTable("wes.greenhouse_gas")
-filtered_df_hydro.write.mode("overwrite").saveAsTable("wes.hydro")
-filtered_df_nuclear.write.mode("overwrite").saveAsTable("wes.nuclear")
-filtered_df_renewables.write.mode("overwrite").saveAsTable("wes.renewables")
-filtered_df_solar.write.mode("overwrite").saveAsTable("wes.solar")
-filtered_df_wind.write.mode("overwrite").saveAsTable("wes.wind")
-filtered_df_other_renewables.write.mode("overwrite").saveAsTable("wes.other_renewables")
-filtered_df_low_carbon.write.mode("overwrite").saveAsTable("wes.low_carbon")
-filtered_df_electricity_imports.write.mode("overwrite").saveAsTable(
-    "wes.electricity_imports"
+# save to hive tables - partition by country
+filtered_df_general.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.general"
 )
+filtered_df_biofuel.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.biofuel"
+)
+filtered_df_coal.write.mode("overwrite").partitionBy("country").saveAsTable("wes.coal")
+filtered_df_gas.write.mode("overwrite").partitionBy("country").saveAsTable("wes.gas")
+filtered_df_oil.write.mode("overwrite").partitionBy("country").saveAsTable("wes.oil")
+filtered_df_fossil.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.fossil"
+)
+filtered_df_greenhouse_gas.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.greenhouse_gas"
+)
+filtered_df_hydro.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.hydro"
+)
+filtered_df_nuclear.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.nuclear"
+)
+filtered_df_renewables.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.renewables"
+)
+filtered_df_solar.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.solar"
+)
+filtered_df_wind.write.mode("overwrite").partitionBy("country").saveAsTable("wes.wind")
+filtered_df_other_renewables.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.other_renewables"
+)
+filtered_df_low_carbon.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.low_carbon"
+)
+filtered_df_electricity_imports.write.mode("overwrite").partitionBy(
+    "country").saveAsTable("wes.electricity_imports")
+
+spark.stop()

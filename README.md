@@ -35,9 +35,8 @@ hdfs dfs -ls -R /app-logs
 | ------- | ------------------ | ----------------------------- |
 | Hadoop  | ResourceManager UI | http://localhost:8088/cluster |
 | Hadoop  | Namenode UI        | http://localhost:9870/        |
-| Hadoop  | NodeManager UI     | 
+| Hadoop  | NodeManager UI     |  http://localhost:8842        | 
 | Jupyter | Notebook UI        | http://localhost:8888/        |
-| 
 | Spark   | Master             | http://localhost:8080/        |
 | Spark   | Worker 1           | http://localhost:8080/        |
 | Spark   | Worker 2           | http://localhost:8080/        |

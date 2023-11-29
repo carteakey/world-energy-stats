@@ -84,8 +84,7 @@ fig_b.update_yaxes(showline=True, linewidth=2, linecolor="black", gridcolor="lig
 
 subtext_a = (
     "Countries like Brazil, Canada, and France, among the top electricity-generating "
-    "countries, distinguish themselves by prioritizing renewable energy, with shares "
-    "of 77%, 68%, and 22%, respectively. In contrast, major contributors "
+    "countries, distinguish themselves by prioritizing renewable energy, with shares. In contrast, major contributors "
     "like China, the United States, India, Russia, and Japan exhibit a higher reliance "
     "on fossil fuels in their electricity generation. This disparity underscores the "
     "global challenge of transitioning towards cleaner energy sources and emphasizes "
@@ -93,9 +92,9 @@ subtext_a = (
 )
 subtext_b = (
     "The 'Max Share' % reveals key insights into each country's primary "
-    "electricity generation sources in 2021. For instance, China relies heavily on coal "
-    "(63%), the United States emphasizes low-carbon sources (40%), and India "
-    "predominantly uses coal (74%). Brazil and Canada showcase a commitment to "
+    "electricity generation sources in 2021. For instance, China and India rely heavily on coal "
+    "(63%), while the United States emphasizes low-carbon sources (40%), and India "
+    "Brazil and Canada showcase a commitment to "
     "low-carbon energy, with shares of 79% and 82%, respectively. France stands "
     "out with a remarkable 91% share from low-carbon sources, primarily nuclear "
     "and renewables."

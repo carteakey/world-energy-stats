@@ -20,6 +20,7 @@ deactivate
 echo "Changing permissions for notebooks and data folders..."
 sudo chmod 777 notebooks
 sudo chmod 777 data
+sudo chmod 777 scripts
 
 # Step 4: Spin up docker container
 echo "Starting Docker containers..."
@@ -27,9 +28,5 @@ docker compose up -d
 
 # Step 5: Check Jupyter server
 docker exec spark-notebook jupyter server list
-
-# Step 6: Create database
-echo "Creating Hive database..."
-docker exec -it hive-server hive -e "CREATE DATABASE wes"
 
 echo "Setup complete!"

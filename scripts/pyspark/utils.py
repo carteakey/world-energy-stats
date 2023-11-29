@@ -1,11 +1,6 @@
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
 
-# Post-processing to rename the output file
-import os
-import shutil
-
-
 def run_spark_sql(sql_file_path, save_file=None):
     """
     Executes a SQL query from a file in Spark SQL.
@@ -36,7 +31,9 @@ def run_spark_sql(sql_file_path, save_file=None):
 
     # Save the result to a file if a save path is provided
     if save_file:
-        result.coalesce(1).write.option("mode","append").option("header","true").csv("hdfs://namenode:9000/energy-data/output/" + save_file)
+        result.coalesce(1).write.option("mode", "append").option("header", "true").csv(
+            "hdfs://namenode:9000/energy-data/output/" + save_file
+        )
 
     # Show the first 20 rows
     result.show()
@@ -105,11 +102,6 @@ def filter_df_by_threshold(df, threshold):
 
     return filtered_df
 
-
-# # Usage example:
-# filtered_df_fossil = filter_df_by_threshold(df_fossil, 5)
-
-
 def count_nulls_by_country(df):
     """
     Count the number of null values for each country and each column (except 'country').
@@ -132,13 +124,6 @@ def count_nulls_by_country(df):
     null_counts_df = df.groupBy("country").agg(*agg_exprs)
 
     return null_counts_df
-
-
-# # Usage example:
-# null_counts_fossil = count_nulls_by_country(df_fossil)
-
-# # Show the results
-# null_counts_fossil.show(n=300)
 
 
 def filter_rows_by_null_threshold(df):
@@ -184,6 +169,3 @@ def filter_rows_by_null_threshold(df):
 
     return filtered_df
 
-
-# # Usage example:
-# filtered_df_fossil, fossil_stats = filter_rows_by_null_threshold(df_fossil)

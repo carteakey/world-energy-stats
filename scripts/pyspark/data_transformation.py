@@ -21,9 +21,7 @@ df = (
 
 
 df = df.filter(df["iso_code"].isNotNull())
-
 df = df[df["year"] >= 1990]
-
 
 # Dropping irrelevant columns
 cols_to_drop = [
@@ -49,9 +47,10 @@ for col in temp_column:
     ).withColumn(col, F.expr(f"coalesce({col}, last({col}, true) over {ffill_window})"))
     # .withColumn(col, F.expr(f"coalesce({col}, first({col}, true) over {bfill_window})")))
 
-
 # Write the DataFrame to a Hive table
-df.write.saveAsTable("wes.transformed_energy_data")
+df.write.mode("overwrite").partitionBy("country").saveAsTable(
+    "wes.transformed_energy_data"
+)
 
 # Stop the SparkSession
 spark.stop()
