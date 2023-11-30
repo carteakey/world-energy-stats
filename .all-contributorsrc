@@ -1,4 +1,21 @@
 {
   "projectName": "world-energy-stats",
-  "projectOwner": "carteakey"
+  "projectOwner": "carteakey",
+  "files": [
+    "README.md"
+  ],
+  "commitType": "docs",
+  "commitConvention": "angular",
+  "contributorsPerLine": 7,
+  "contributors": [
+    {
+      "login": "ruchithakor",
+      "name": "Ruchi ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/68530125?v=4",
+      "profile": "https://github.com/ruchithakor",
+      "contributions": [
+        "data"
+      ]
+    }
+  ]
 }
