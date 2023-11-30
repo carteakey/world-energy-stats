@@ -50,7 +50,7 @@ hdfs dfs -ls -R /app-logs
 <table>
   <tbody>
     <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ruchithakor"><img src="https://avatars.githubusercontent.com/u/68530125?v=4?s=100" width="100px;" alt="Ruchi "/><br /><sub><b>Ruchi </b></sub></a><br /><a href="#data-ruchithakor" title="Data">🔣</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ruchithakor"><img src="https://avatars.githubusercontent.com/u/68530125?v=4?s=100" width="100px;" alt="Ruchi "/><br /><sub><b>Ruchi </b></sub></a><br /><a href="#data-ruchithakor" title="Data">🔣</a> <a href="#code-ruchithakor" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
