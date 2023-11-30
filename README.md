@@ -47,6 +47,13 @@ hdfs dfs -ls -R /app-logs
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Amarpreet3"><img src="https://avatars.githubusercontent.com/u/96805692?v=4?s=100" width="100px;" alt="Amarpreet Kaur"/><br /><sub><b>Amarpreet Kaur</b></sub></a><br /><a href="#data-Amarpreet3" title="Data">🔣</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
