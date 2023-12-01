@@ -2,7 +2,36 @@
 
 https://world-energy-stats-34l3s.ondigitalocean.app/
 
+
 ## Overview
+Significant shifts in global energy dynamics over the past 50 years, driven by technology advancements, emerging energy sources, and growing climate awareness, highlight the need for understanding and analyzing changes in energy consumption.
+
+Using Big Data tools, this project analyzes consumption trends for primary energy sources on global/country level over the past few decades and generate insights.
+
+Final Project for MDS @ TMU Course - DS8003. 
+
+### Data Pipeline Architecture
+![process](process.png)
+
+
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Amarpreet3"><img src="https://avatars.githubusercontent.com/u/96805692?v=4?s=100" width="100px;" alt="Amarpreet Kaur"/><br /><sub><b>Amarpreet Kaur</b></sub></a><br /><a href="#data-Amarpreet3" title="Data">🔣</a><a href="#code-Amarpreet3" title="Code">💻</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ruchithakor"><img src="https://avatars.githubusercontent.com/u/68530125?v=4?s=100" width="100px;" alt="Ruchi "/><br /><sub><b>Ruchi </b></sub></a><br /><a href="#data-ruchithakor" title="Data">🔣</a> <a href="#code-ruchithakor" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 
 ## Citation
@@ -29,37 +58,19 @@ docker exec -it hive-server hive
 ```bash
 hdfs dfs -ls -R /app-logs
 ```
-<!-- # vi  /var/snap/docker/current/config/daemon.json -->
 
+#### Services
 | App     | Server             | Link                          |
 | ------- | ------------------ | ----------------------------- |
 | Hadoop  | ResourceManager UI | http://localhost:8088/cluster |
 | Hadoop  | Namenode UI        | http://localhost:9870/        |
-| Hadoop  | NodeManager UI     |  http://localhost:8842        | 
+| Hadoop  | NodeManager UI     | http://localhost:8842         | 
 | Jupyter | Notebook UI        | http://localhost:8888/        |
+| Airflow  | Web Server UI      | http://localhost:8082/        |
 | Spark   | Master             | http://localhost:8080/        |
-| Spark   | Worker 1           | http://localhost:8080/        |
-| Spark   | Worker 2           | http://localhost:8080/        |
-| Airflow  |                    | http://localhost:8082/        |
+| Spark   | Worker 1           | http://localhost:8081/        |
+| Spark   | Worker 2           | http://localhost:8083/        |
 
-## Contributors
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Amarpreet3"><img src="https://avatars.githubusercontent.com/u/96805692?v=4?s=100" width="100px;" alt="Amarpreet Kaur"/><br /><sub><b>Amarpreet Kaur</b></sub></a><br /><a href="#data-Amarpreet3" title="Data">🔣</a><a href="#code-Amarpreet3" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ruchithakor"><img src="https://avatars.githubusercontent.com/u/68530125?v=4?s=100" width="100px;" alt="Ruchi "/><br /><sub><b>Ruchi </b></sub></a><br /><a href="#data-ruchithakor" title="Data">🔣</a> <a href="#code-ruchithakor" title="Code">💻</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## Project Structure
 ```~/world-energy-stats# tree --gitignore -L 3
@@ -129,7 +140,5 @@ hdfs dfs -ls -R /app-logs
     ├── 5_population_correlation.sql
     ├── combined_energy_data.sql
     └── energy_share.sql
-
-21 directories, 45 files
 ```
 
