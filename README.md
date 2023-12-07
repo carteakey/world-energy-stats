@@ -18,6 +18,10 @@ docker compose up airflow-init
 ```
 
 ```bash
+docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+```
+
+```bash
 docker compose down --volumes --remove-orphans
 ```
 

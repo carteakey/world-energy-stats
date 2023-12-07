@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/anaconda/envs/py38_default/bin/python3
 
 # Import required packages
 import sys
@@ -7,7 +7,7 @@ import pandas as pd
 # Read input csv file
 energy_data = pd.read_csv(sys.stdin, header=None)
 
-data_dict = {}  # Initialize dictionary to store data stats for each column
+dict = {}  # Initialize dictionary to store data stats for each column
 
 # Pass list of column names
 col_list = [
@@ -135,41 +135,26 @@ col_list = [
     "wind_energy_per_capita",
 ]
 
-# Initialize dictionary
+# Initialize 0 value for each column's null count, min, max, sum, count
 for ind in col_list:
-    data_dict[ind] = {
-        "null_c": 0,
-        "min": float("inf"),
-        "max": float("-inf"),
-        "sum": 0,
-        "count": 0,
-    }
+    dict[ind] = {"null_c": 0, "min": 0, "max": 0, "sum": 0, "count": 0}
 
-# Processing data
-for ind, col_name in enumerate(col_list):
-    series = energy_data[ind]
+for ind in range(0, 2):
+    # for non-numeric column, count number of nulls
+    key = col_list[ind]
+    dict[key]["null_c"] = energy_data[ind].isna().sum()
 
-    # Convert series to numeric, non-convertible values will become NaN
-    series = pd.to_numeric(series, errors="coerce")
+for ind in range(2, len(col_list)):
+    # For numeric columns, count nulls, min, max, sum
+    key = col_list[ind]
+    dict[key]["null_c"] = energy_data[ind].isna().sum()  # Null Count
+    dict[key]["min"] = energy_data[ind].min()  # Minimum value
+    dict[key]["max"] = energy_data[ind].max()  # Maximum Value
+    dict[key]["sum"] = energy_data[ind].sum()  # Total Sum
+    dict[key]["count"] = energy_data.shape[0] - dict[key]["null_c"]  # Count Not nulls
 
-    # non_null_series = series.dropna()
-    data_dict[col_name]["null_c"] = series.isna().sum()
-    data_dict[col_name]["min"] = series.min() if not series.empty else "NA"
-    data_dict[col_name]["max"] = series.max() if not series.empty else "NA"
-    data_dict[col_name]["sum"] = series.sum()
-    data_dict[col_name]["count"] = series.count()
-
-# Output results
-for column, val in data_dict.items():
-    min_val = val["min"] if val["min"] != float("inf") else "NA"
-    max_val = val["max"] if val["max"] != float("-inf") else "NA"
+for column, val in dict.items():
+    # Print all the values
     print(
-        "{}\tNull_Count:{}\tMin:{}\tMax:{}\tSum:{}\tCount:{}".format(
-            column,
-            val["null_c"],
-            min_val,
-            max_val,
-            val["sum"],
-            val["count"]
-        )
+        f"{column}\tnull_count:{val['null_c']}\tmin:{val['min']}\tmax:{val['max']}\tsum:{val['sum']}\tcount:{val['count']}"
     )

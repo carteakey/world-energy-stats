@@ -58,8 +58,6 @@ eda_job = BashOperator(
     dag=dag,
 )
 
-
-# Replace these paths with your actual paths
 mapper_script_path = "hdfs://namenode:9000/energy-data/null_percent_mapper.py"
 mapper = "null_percent_mapper.py"
 reducer_script_path = "hdfs://namenode:9000/energy-data/null_percent_reducer.py"
