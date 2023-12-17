@@ -19,8 +19,6 @@ app.title = "World Energy Statistics"
 server = app.server
 
 # Define a Navbar component with links to each insight
-
-
 def create_navbar():
     navbar = dbc.Navbar(
         [
@@ -133,7 +131,7 @@ def create_homepage():
                         create_feature_card(
                             "Energy, GDP and Population",
                             "insight-5",
-                            "/assets/energy-gdp-pop.png",
+                            "/assets/big-players.png",
                         ),
                         md=6,
                         lg=4,
@@ -217,6 +215,7 @@ def create_footer():
         ],
         className="footer mt-5 position-relative",  # Added position-relative here
     )
+
 
 # Define the app layout with URL routing
 app.layout = html.Div(

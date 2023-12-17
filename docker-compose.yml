@@ -91,7 +91,7 @@ services:
     volumes:
       - ./energy-data:/opt/energy-data
       - ./scripts:/opt/scripts
-      - ./dash-app/assets/data:/opt/data/
+      - ../assets/data:/opt/data/
 
     environment:
       SERVICE_PRECONDITION: "namenode:9000 namenode:9870 datanode:9864"

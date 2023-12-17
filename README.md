@@ -1,6 +1,6 @@
 # world-energy-stats
 
-https://world-energy-stats-34l3s.ondigitalocean.app/
+https://world-energy-stats.fly.dev
 
 
 ## Overview
@@ -79,58 +79,75 @@ hdfs dfs -ls -R /app-logs
 ## Project Structure
 ```~/world-energy-stats# tree --gitignore -L 3
 .
+├── Procfile
 ├── README.md
 ├── airflow
-│   ├── config
 │   ├── dags
-│   │   └── run_data_transformation.py
-│   ├── logs
-│   │   ├── dag_id=data_transformation
-│   │   ├── dag_processor_manager
-│   │   └── scheduler
-│   └── plugins
-├── dash-app
-│   ├── assets
-│   │   ├── big-players.png
-│   │   ├── data
-│   │   ├── electricity-mix.png
-│   │   ├── energy-consumption.png
-│   │   ├── energy-gdp-pop.png
-│   │   ├── energy-mix.png
-│   │   └── styles.css
-│   └── components
-│       ├── insight_1.py
-│       ├── insight_2.py
-│       ├── insight_3.py
-│       ├── insight_4.py
-│       └── insight_5.py
+│   │   ├── hadoop_setup_python.py
+│   │   ├── hdfs_data_download.py
+│   │   ├── hdfs_data_upload.py
+│   │   ├── hive_create_database.py
+│   │   ├── run_all.py
+│   │   ├── run_data_categorization.py
+│   │   ├── run_data_transformation.py
+│   │   ├── run_hive_sql.py
+│   │   └── run_mapred_genstats.py
+├── app.py
+├── assets
+│   ├── big-players.png
+│   ├── data
+│   │   ├── 1_energy_overview.csv
+│   │   ├── 2_energy_consumption_pct_rem.csv
+│   │   ├── 2_energy_consumption_pct_top15.csv
+│   │   ├── 2_energy_consumption_top15.csv
+│   │   ├── 3_energy_breakdown_top15.csv
+│   │   ├── 4_electricity_gen_top15.csv
+│   │   ├── 4_electricity_share_top15.csv
+│   │   ├── 5_population_correlation.csv
+│   │   └── energy_share.csv
+│   ├── electricity-mix.png
+│   ├── energy-consumption.png
+│   ├── energy-gdp-pop.png
+│   ├── energy-mix.png
+│   └── styles.css
+├── components
+│   ├── insight_1.py
+│   ├── insight_2.py
+│   ├── insight_3.py
+│   ├── insight_4.py
+│   └── insight_5.py
 ├── docker-compose.env
 ├── docker-compose.yml
 ├── energy-data
 │   ├── README.md
 │   ├── owid-energy-codebook.csv
 │   └── owid-energy-data.csv
+├── fly.toml
 ├── notebooks
-│   ├── clean
 │   ├── eda.ipynb
-│   ├── hive_queries_ak-1.ipynb
 │   ├── hive_queries_ak.ipynb
 │   ├── hive_queries_kc.ipynb
 │   ├── output
 │   ├── spark_etl_countries.ipynb
 │   ├── spark_etl_world.ipynb
-│   ├── spark_hive_test.ipynb
+│   ├── sql
 │   └── utils.py
+├── process.png
 ├── requirements.txt
 ├── scripts
 │   ├── hadoop
 │   │   ├── eda_pandas_mapper.py
+│   │   ├── eda_pandas_mapper_orig.py
 │   │   ├── eda_pandas_reducer.py
+│   │   ├── eda_pandas_reducer_orig.py
 │   │   ├── null_percent_mapper.py
-│   │   └── null_percent_reducer.py
+│   │   ├── null_percent_reducer.py
+│   │   └── test
+│   ├── install_python.sh
 │   └── pyspark
 │       ├── data_categorization.py
 │       ├── data_transformation.py
+│       ├── run_hive_query.py
 │       └── utils.py
 ├── setup.sh
 └── sql
