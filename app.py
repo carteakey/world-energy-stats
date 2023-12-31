@@ -197,21 +197,21 @@ def create_footer():
                 fluid=True,
                 className="py-3",
             ),
-            # dbc.Button(
-            #     children=[
-            #         html.I(className="bi bi-github", style={"filter": "invert(100%)", "marginRight": "5px"}),
-            #         " GitHub",
-            #     ],
-            #     className="btn-dark position-absolute",
-            #     style={
-            #         "bottom": "15px",
-            #         "right": "15px",
-            #         "display": "inline-flex",
-            #         "alignItems": "center",  # Added for alignment
-            #     },
-            #     href="https://github.com/world-energy-stats",
-            #     target="_blank",
-            # ),
+            dbc.Button(
+                children=[
+                    html.I(className="bi bi-github", style={"filter": "invert(100%)", "marginRight": "5px"}),
+                    " GitHub",
+                ],
+                className="btn-dark position-absolute",
+                style={
+                    "bottom": "15px",
+                    "right": "15px",
+                    "display": "inline-flex",
+                    "alignItems": "center",  # Added for alignment
+                },
+                href="https://github.com/world-energy-stats",
+                target="_blank",
+            ),
         ],
         className="footer mt-5 position-relative",  # Added position-relative here
     )
